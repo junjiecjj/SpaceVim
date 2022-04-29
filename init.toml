@@ -1,0 +1,662 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2022 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg@outlook.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+# All SpaceVim option below [option] section
+[options]
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer,molokai,srcery,onedark,jellybeans,palenight,one,nord,hybrid,SpaceVim
+    colorscheme = "NeoSolarized"
+    colorscheme_bg = "dark"
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = true
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "arrow"
+    statusline_iseparator = "arrow"
+    # buffer_index_type = 4
+    enable_tabline_filetype_icon = true
+    enable_statusline_mode = false
+    automatic_update = true # SpaceVim自动更新
+    disabled_plugins = ["clighter", "clighter8"]  # 禁用插件
+
+    # 多的主题，你可以载入 colorscheme 模块
+    # colorscheme = "gruvbox"
+
+    # colorscheme = "OceaniwcNext"
+    # colorscheme_bg = "dark"
+
+    colorscheme = "NeoSolarized"
+    colorscheme_bg = "light"
+    # 背景可以取值 "dark" 和 "light"
+
+    # 启用/禁用终端真色，在目前大多数终端下都是支持真色的，当然也有
+    # 一小部分终端不支持真色，如果你的 SpaceVim 颜色看上去比较怪异
+    # 可以禁用终端真色，将下面的值设为 false
+    enable_guicolors = true
+
+    # statusline设置，启用时才有效
+    # 设置状态栏上分割符号形状，如果字体安装失败，可以将值设为 "nil" 以
+    # 禁用分割符号，默认为箭头 "arrow"
+    # statusline_separator = "nil"
+    # statusline_separator = "bar"
+    # 设置顶部标签列表序号类型，有以下五种类型，分别是 0 - 4
+    buffer_index_type = 4
+    # 0: 1 ➛ ➊
+    # 1: 1 ➛ ➀
+    # 2: 1 ➛ ⓵
+    # 3: 1 ➛ ¹
+    # 4: 1 ➛
+    # 显示/隐藏顶部标签栏上文件类型图标，这一图标需要安装 nerd fonts，
+    # 如果未能成功安装这一字体，可以隐藏图标
+    enable_tabline_filetype_icon = true
+    # 是否在状态栏上显示当前模式，默认情况下，不显示 Normal/Insert 等
+    # 字样，只以颜色区分当前模式
+    enable_statusline_display_mode = false
+    statusline_left_sections = [
+       'winnr',
+       'filename',
+       'major mode',
+       'fileformat',
+       'minor mode lighters',
+       'version control info',
+    ]
+    statusline_right_sections = [
+       'cursorpos',
+       'percentage',
+       'date',
+       'time',
+    ]
+    #######################################################################
+    # MY OWN OPTIONS
+    filemanager = "defx"
+    autocomplete_method = "coc"
+    #snippet_engine = "ultisnips"
+    # 启动函数名称，该函数中可以使用Vim Script
+    # 启动函数文件位置：~/.SpaceVim.d/autoload/myspacevim.vim
+    # 函数 bootstrap_before 将在读取用户配置后执行，而函数 bootstrap_after 将在 VimEnter autocmd 之后执行。
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
+    # Vim兼容
+    # vimcompatible = true
+    # Vim兼容：Normal模式窗口快捷键的前缀改为X，s作为删除字符
+    windows_leader = 'X'
+    # Vim兼容：语言专用的前缀键，f、F、t、T改为搜索
+    enable_language_specific_leader = false
+    # Vim兼容：智能关闭窗口q改为录制宏
+    windows_smartclose = ''
+
+
+
+
+[options]
+    # 文件树插件可选值包括：
+    # - nerdtree （默认）
+    # - vimfiler: 需要编译 vimproc.vim, 在目录 bundle/vimproc.vim 下
+    # - defx: 需要 +py3 支持
+    filemanager = "nerdtree"
+[options]
+    enable_vimfiler_welcome = false
+
+[options]
+    filetree_direction = "left"
+[options]
+    default_indent = 4
+    expand_tab = true
+
+[options]
+    guifont = "SourceCodePro Nerd Font Mono:h11"
+[options]
+    enable_guicolors = false
+    snippet_engine = "neosnippet"
+    statusline_separator = 'arrow'
+    sidebar_width = 30
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
+[options]
+    colorscheme = "NeoSolarized"
+    colorscheme_bg = "dark"
+
+
+[options]
+    # options for layers checkers
+    enable_neomake = true
+    enable_ale = false
+    lint_on_the_fly = false
+    # option for autocomplete
+    autocomplete_method = "coc"
+    # bootstrap configuration
+    bootstrap_before = "myspacevim#before"
+    bootstrap_after = "myspacevim#after"
+[options]
+    custom_color_palette = [
+        ["#282828", "#a89984", 246, 235],
+        ["#a89984", "#504945", 239, 246],
+        ["#a89984", "#3c3836", 237, 246],
+        ["#665c54", 241],
+        ["#282828", "#83a598", 235, 109],
+        ["#282828", "#fe8019", 235, 208],
+        ["#282828", "#8ec07c", 235, 108],
+        ["#282828", "#689d6a", 235, 72],
+        ["#282828", "#8f3f71", 235, 132],
+    ]
+
+
+
+# ----------------- SpaceVim 添加的各种 layers ---------------------------------
+# 强化`/`搜索显示
+[[layers]]
+    name = "incsearch"
+
+# 计算器, 日历, 书签等小工具
+[[layers]]
+    name = 'tools'
+
+# 禁用 SpaceVim 的 checkers layer, 让 coc.nvim 来管理
+[[layers]]
+    name = "checkers"
+    enable = false
+
+# 版本控制
+[[layers]]
+    name = "VersionControl"
+    enable-gtm-status = false
+
+[[layers]]
+    name = "git"
+    git-plugin = "fugitive"
+
+[[layers]]
+    name = "fzf"
+
+[[layers]]
+    name = "lang#markdown"
+
+[[layers]]
+    name = "lang#latex"
+
+[[layers]]
+    name = "lang#c"
+    enable_clang_syntax_highlight = true
+
+[[layers]]
+    name = "lang#python"
+
+[[layers]]
+    name = "lang#toml"
+
+[[layers]]
+    name = "lang#vim"
+
+[[layers]]
+    name = "lang#sh"
+
+[[layers]]
+    name = "format"
+
+#Python IDE配置
+[[layers]] 
+    name = "lang#python"
+
+#C/C++ IDE配置#
+[[layers]]
+    name = "lang#"
+    enable_clang_syntax_highlight = true
+
+[[layers]]
+  name = "lsp"
+
+
+[[layers]]
+  repo = 'lilydjwg/colorizer'
+  on_cmd = ["ColorHighlight", "ColorToggle"]   # 可以通过 :h dein-options 查阅。
+  on_func = 'colorizer#ColorToggle'
+  merged = false
+
+
+
+[[layers]]
+  name = "lang#c"
+  [layer.clang_std]
+    cpp = "c11"
+
+[[custom_plugins]]
+    repo = 'lilydjwg/colorizer'
+    merged = false
+
+[[custom_plugins]]
+    repo = 'joshdick/onedark.vim'
+    merged = false
+
+[[custom_plugins]]
+name = "Yggdroot/LeaderF"
+merged = 0
+[[custom_plugins]]
+name = "tpope/vim-scriptease"
+merged = 0
+on_cmd = "Scriptnames"
+
+
+# 添加自定义插件 junegunn/vader.vim
+[[custom_plugins]]
+repo = "junegunn/vader.vim"
+merged = false
+
+
+[[custom_plugins]]
+name = "mhartington/oceanic-next"
+merged = 0
+
+# coc.nvim 核心配置，不要删除
+# ~/.cache/vimfiles/repos/github.com/neoclide/coc.nvim
+[[custom_plugins]]
+name = 'neoclide/coc.nvim'
+merge = 0
+
+[[custom_plugins]]
+name = 'antoinemadec/coc-fzf'
+branch = 'release'
+
+[[custom_plugins]]
+name = 'junegunn/fzf.vim'
+
+# 快速搜索文件和 buffer
+[[custom_plugins]]
+name = "Yggdroot/LeaderF"
+build = "./install.sh"
+
+# 快速编辑 markdown 的表格
+[[custom_plugins]]
+name = 'dhruvasagar/vim-table-mode'
+
+# 更加美观的 tagbar
+[[custom_plugins]]
+name = 'liuchengxu/vista.vim'
+
+# 更加方便的调节窗口的大小
+[[custom_plugins]]
+name = 'simeji/winresizer'
+
+# 为 c/cpp 提供基于 lsp 的高亮
+[[custom_plugins]]
+    name = 'jackguo380/vim-lsp-cxx-highlight'
+
+# 从 http://cplusplus.com/ 和 http://cppreference.com/ 获取文档
+[[custom_plugins]]
+    name = 'skywind3000/vim-cppman'
+
+# 利用 git blame 显示当前行的 commit message
+[[custom_plugins]]
+    name = 'rhysd/git-messenger.vim'
+    lazy =  1
+    on_cmd = 'GitMessenger'
+
+# 以悬浮窗口的形式打开终端
+[[custom_plugins]]
+    name = 'voldikss/vim-floaterm'
+    merged = 0
+
+# 显示搜索的标号
+[[custom_plugins]]
+    name = 'google/vim-searchindex.git'
+    merged = 0
+
+# 记账
+[[custom_plugins]]
+    name = 'jonsmithers/vim-beancount'
+    merged = 0
+
+# 常用snippets
+[[custom_plugins]]
+    name = 'honza/vim-snippets'
+    merged = 0
+
+# 用于高效操作与括号、引号或html、xml标签相关的配对符号(surrounding)
+[[custom_plugins]]
+    name = 'tpope/vim-repeat'
+    merged = 0
+
+# 文本对象
+[[custom_plugins]]
+    name = 'kana/vim-textobj-user'
+    merged = 0
+
+    [[custom_plugins]]
+    name = 'kana/vim-textobj-indent'
+    merged = 0
+
+    [[custom_plugins]]
+    name = 'kana/vim-textobj-syntax'
+     merged = 0
+   
+[[custom_plugins]]
+    name = 'kana/vim-textobj-function'
+    merged = 0
+
+[[custom_plugins]]
+    name = 'sgur/vim-textobj-parameter'
+    merged = 0
+
+# ctags
+[[custom_plugins]]
+    name = 'ludovicchabant/vim-gutentags'
+    merged = 0
+
+
+
+#"给当前光标下的单词增加下划线
+[[custom_plugins]]
+    name = 'itchyny/vim-cursorword'
+    merged = 0
+
+#多层括号配色
+[[custom_plugins]]
+    name = 'luochen1990/rainbow'
+
+
+[[custom_plugins]]
+    name = 'kien/rainbow_parentheses.vim'
+    merged = 0
+
+[[custom_plugins]]
+    name = 'mechatroner/rainbow_csv'
+    merged = 0
+
+# 查找替换
+[[custom_plugins]]
+    name = 'liuchengxu/vim-clap'
+    merged = 0
+
+
+[[custom_plugins]]
+    name = 'nvim-telescope/telescope.nvim'
+
+
+[[custom_plugins]]
+    name = 'Yggdroot/LeaderF'
+    merged = 0
+
+
+#强大的搜索定位，快速移动
+[[custom_plugins]]
+    name = 'easymotion/vim-easymotion'
+    merged = 0
+
+#"快速将括号、‘’、“”、[]等替换
+#[[custom_plugins]]
+#    name = 'vim-surround'
+
+
+[[custom_plugins]]
+    name = 'gelguy/wilder.nvim'
+    merged = 0
+
+
+[[custom_plugins]]
+    name = 'Yggdroot/indentLine'
+    merged = 0
+
+[[custom_plugins]]
+    name = 'chxuan/change-colorscheme'
+    merged = 0
+
+
+[[custom_plugins]]
+    name = 'kyazdani42/nvim-web-devicons'
+    merged = 0
+
+
+[[custom_plugins]]
+    name = 'terryma/vim-multiple-cursors'
+    merged = 0
+
+# (类名、变量、函数)标签列表插件
+[[custom_plugins]]
+    name = 'vim-scripts/taglist.vim'
+    merged = 0
+
+
+[[custom_plugins]]
+    name = 'majutsushi/tagbar'
+    merged = 0
+
+[[custom_plugins]]
+    name = 'Shougo/defx.nvim'
+    merged = 0
+
+
+
+[[custom_plugins]]
+    name = 'kristijanhusak/defx-git'
+    merged = 0
+
+
+[[custom_plugins]]
+    name = 'kristijanhusak/defx-icons'
+    merged = 0
+
+
+
+# 目录树插件
+[[custom_plugins]]
+    name = 'scrooloose/nerdtree'
+    merged = 0
+
+
+
+# 树形目录-在 NERDTree中显示git信息插件
+[[custom_plugins]]
+    name = 'Xuyuanp/nerdtree-git-plugin'
+    merged = 0
+
+
+#"taglist的增强版，显示变量函数宏等
+[[custom_plugins]]
+    name = 'majutsushi/tagbar'
+    merged = 0
+
+
+
+[[custom_plugins]]
+    name = 'jistr/vim-nerdtree-tabs'
+    merged = 0
+
+# 书签管理插件
+[[custom_plugins]]
+name = "MattesGroeger/vim-bookmarks" 
+merged = 0
+
+
+
+
+# markdown格式高亮插件
+[[custom_plugins]]
+name = "suan/vim-instant-markdown" 
+merged = 0
+
+# 快捷键菜单插件
+[[custom_plugins]]
+name = "skywind3000/quickmenu.vim"
+merged = 0
+
+
+# git插件 窗口边缘标识git变化 
+[[custom_plugins]]
+name = "airblade/vim-gitgutter"
+merged = 0
+
+# git命令封装插件
+[[custom_plugins]]
+name = "tpope/vim-fugitive"
+merged = 0
+
+# 修改与撤销树插件
+[[custom_plugins]]
+name = "mbbill/undotree"
+merged = 0
+
+
+# (类名、变量、函数)标签列表插件
+[[custom_plugins]]
+name = "vim-scripts/taglist.vim" 
+merged = 0
+
+
+# 书签管理插件
+[[custom_plugins]]
+name = "MattesGroeger/vim-bookmarks" 
+merged = 0
+
+
+# 同ack一样的文件内容搜索工具插件【需要安装第三方搜索软件】
+[[custom_plugins]]
+name = "jremmen/vim-ripgrep"
+merged = 0
+
+# 模糊搜索fzf
+[[custom_plugins]]
+name = "junegunn/fzf"
+merged = 0
+
+# 模糊搜索fzf
+[[custom_plugins]]
+name = "junegunn/fzf.vim"
+merged = 0
+
+# markdown格式高亮插件
+[[custom_plugins]]
+name = "suan/vim-instant-markdown" 
+merged = 0
+
+# 代码注释插件
+# [[custom_plugins]]
+# name = "preservim/nerdcommenter"
+# merged = 0
+# SpaceVim 有内置代码注释 <space>+c+l 、<sapce>+c+u <space>+c+L 
+
+# vim8.1的终端辅助插件
+[[custom_plugins]]
+name = "skywind3000/vim-terminal-help"
+merged = 0
+	    
+
+[[custom_plugins]]
+name = "nlknguyen/papercolor-theme"
+merged = 0
+
+
+
+
+[[custom_plugins]]
+name = "sonph/onehalf"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "lifepillar/vim-solarized8"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "altercation/vim-colors-solarized"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "overcache/NeoSolarized"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "lifepillar/vim-gruvbox8"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "wsniper/vim-color-theme-protect-eyes"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "Rigellute/shades-of-purple.vim"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "atrnh/magical-girl-vim"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "bluz71/vim-moonfly-colors"
+merged = 0
+
+
+
+
+
+[[custom_plugins]]
+name = "folke/twilight.nvim"
+merged = 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
