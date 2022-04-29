@@ -635,6 +635,9 @@ nnoremap ]e :<c-u>execute  'move +'.v:count1<cr>
 " 速添加空行
 nnoremap [s :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]s :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+nnoremap <space>i i<space><esc>
+nnoremap <space>a a<space><esc>
+
 "快速跳转到源/头文件
 autocmd BufLeave *.{c,cpp} mark C
 autocmd BufLeave *.h mark H

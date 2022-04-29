@@ -11,8 +11,8 @@
     # set spacevim theme. by default colorscheme layer is not loaded,
     # if you want to use more colorscheme, please load the colorscheme
     # layer,molokai,srcery,onedark,jellybeans,palenight,one,nord,hybrid,SpaceVim
-    colorscheme = "NeoSolarized"
-    colorscheme_bg = "dark"
+    colorscheme="SpaceVim"
+    colorscheme_bg="dark"
     # Disable guicolors in basic mode, many terminal do not support 24bit
     # true colors
     enable_guicolors = true
@@ -22,7 +22,7 @@
     statusline_iseparator = "arrow"
     # buffer_index_type = 4
     enable_tabline_filetype_icon = true
-    enable_statusline_mode = false
+    enable_statusline_mode = true
     automatic_update = true # SpaceVim自动更新
     disabled_plugins = ["clighter", "clighter8"]  # 禁用插件
 
@@ -32,8 +32,8 @@
     # colorscheme = "OceaniwcNext"
     # colorscheme_bg = "dark"
 
-    colorscheme = "NeoSolarized"
-    colorscheme_bg = "light"
+    # colorscheme = "NeoSolarized"
+    # colorscheme_bg = "dark"
     # 背景可以取值 "dark" 和 "light"
 
     # 启用/禁用终端真色，在目前大多数终端下都是支持真色的，当然也有

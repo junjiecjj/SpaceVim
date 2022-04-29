@@ -2345,7 +2345,7 @@ func! myspacevim#after() abort
 
     """"""""""""""""""""""""""""""""""""""" change-colorscheme 配置  """""""""""""""""""""""""""""""""""""""
 
-    " map <F2>> :NextColorScheme<CR>
+    " map <F2> :NextColorScheme<CR>
     map nc :NextColorScheme<CR>
     " imap <F12> <ESC> :NextColorScheme<CR>
     " imap <Leader>nc <ESC> :NextColorScheme<CR>
