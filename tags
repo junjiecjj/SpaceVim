@@ -218,6 +218,7 @@ SetLastModifiedTime	autoload/myspacevim.vim	/^    function! SetLastModifiedTime(
 SetTitle	autoload/myspacevim.vim	/^    function! SetTitle()$/;"	f
 Smaller	autoload/myspacevim.vim	/^    command! Smaller :let &guifont = substitude(&guifont, '\\d\\+$', '\\=submatch(0)-1',")$/;"	c
 Smartf	autoload/myspacevim.vim	/^    augroup Smartf$/;"	a
+SpaceVim的配置文件	README.md	/^# SpaceVim的配置文件$/;"	c
 TN	autoload/myspacevim.vim	/^    nnoremap  TN :call NumberToggle()<cr>$/;"	m
 Tlist_Auto_Open	autoload/myspacevim.vim	/^    let Tlist_Auto_Open = 0$/;"	v
 Tlist_Auto_Update	autoload/myspacevim.vim	/^    let Tlist_Auto_Update = 1$/;"	v
