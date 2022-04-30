@@ -183,7 +183,7 @@ set foldmethod=indent
 " set foldmethod=syntax
 
 " 用空格代替za进行折叠代码
-nnoremap <space> za
+" nnoremap <space> za
 
 " za :打开或者关闭折叠
 " zm ：关闭所有折叠
@@ -1697,6 +1697,28 @@ function! SetLastModifiedTime(lineno)
     endif
 endfunc
 """"""""""""""""""""""""""""""""""""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+" <SPC> c l 注释选择的行。一般我会V然后选择多行，然后按<SPC> c l注释掉选择的行。取消注释也是这样。c l就是comment lines的意思。
+" 如果觉得SPC c l稍微麻烦（不同字母嘛），添加下面的代码到init.vim。
+call SpaceVim#custom#SPC('nmap', ['c', 'c'], '<Plug>NERDCommenterInvert', 'comment or uncomment lines', 0)
+
+
+
+
+let g:spacevim_colorscheme = 'onedark'
+let g:spacevim_guifont='CascadiaCove\ Nerd\ Font:h12'
+
+
+
+
+
+
+
+
+
+
+
 
 
 
