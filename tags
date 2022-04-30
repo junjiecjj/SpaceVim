@@ -312,6 +312,8 @@
 <leader>t	autoload/myspacevim.vim	/^    map <leader>t :sp term:\/\/zsh<CR><c-w>J:res 10<CR>A$/;"	m
 <leader>t	init.vim	/^map <leader>t :sp term:\/\/zsh<CR><c-w>J:res 10<CR>A$/;"	m
 <space>	init.vim	/^nnoremap <space> za$/;"	m
+<space>a	init.vim	/^nnoremap <space>a a<space><esc>$/;"	m
+<space>i	init.vim	/^nnoremap <space>i i<space><esc>$/;"	m
 <tab><left>	autoload/myspacevim.vim	/^    noremap <silent><tab><left> :tabprevious<cr>$/;"	m
 <tab><left>	init.vim	/^noremap <silent><tab><left> :tabprevious<cr>$/;"	m
 <tab><right>	autoload/myspacevim.vim	/^    noremap <silent><tab><right> :tabnext<cr>$/;"	m
