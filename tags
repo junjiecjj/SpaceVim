@@ -311,7 +311,6 @@
 <leader>sa	init.vim	/^map <leader>sa ggVG"$/;"	m
 <leader>t	autoload/myspacevim.vim	/^    map <leader>t :sp term:\/\/zsh<CR><c-w>J:res 10<CR>A$/;"	m
 <leader>t	init.vim	/^map <leader>t :sp term:\/\/zsh<CR><c-w>J:res 10<CR>A$/;"	m
-<space>	init.vim	/^nnoremap <space> za$/;"	m
 <space>a	init.vim	/^nnoremap <space>a a<space><esc>$/;"	m
 <space>i	init.vim	/^nnoremap <space>i i<space><esc>$/;"	m
 <tab><left>	autoload/myspacevim.vim	/^    noremap <silent><tab><left> :tabprevious<cr>$/;"	m
@@ -485,7 +484,9 @@ g:rcsv_colorpairs	autoload/myspacevim.vim	/^    let g:rcsv_colorpairs = [['red',
 g:rcsv_delimiters	autoload/myspacevim.vim	/^    let g:rcsv_delimiters = ["\\t", ",", "^", "~#~"]$/;"	v
 g:space_vim_transp_bg	autoload/myspacevim.vim	/^    let g:space_vim_transp_bg = 1$/;"	v
 g:space_vim_transp_bg	init.vim	/^let g:space_vim_transp_bg = 1$/;"	v
+g:spacevim_colorscheme	init.vim	/^let g:spacevim_colorscheme = 'onedark'$/;"	v
 g:spacevim_enable_vimfiler_filetypeicon	autoload/myspacevim.vim	/^    let g:spacevim_enable_vimfiler_filetypeicon = 1$/;"	v
+g:spacevim_guifont	init.vim	/^let g:spacevim_guifont='CascadiaCove\\ Nerd\\ Font:h12'$/;"	v
 g:startify_bookmarks	autoload/myspacevim.vim	/^        let g:startify_bookmarks            = [$/;"	v
 g:startify_custom_footer	autoload/myspacevim.vim	/^        let g:startify_custom_footer = [$/;"	v
 g:startify_custom_header	autoload/myspacevim.vim	/^        let g:startify_custom_header = [$/;"	v

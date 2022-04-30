@@ -105,7 +105,7 @@
     # - nerdtree （默认）
     # - vimfiler: 需要编译 vimproc.vim, 在目录 bundle/vimproc.vim 下
     # - defx: 需要 +py3 支持
-    filemanager = "nerdtree"
+    filemanager = "defx"
 [options]
     enable_vimfiler_welcome = false
 
@@ -630,34 +630,347 @@ name = "bluz71/vim-moonfly-colors"
 merged = 0
 
 
+[[custom_plugins]]
+name = "flazz/vim-colorschemes"
+merged = 0
 
+[[custom_plugins]]
+name = "liuchengxu/space-vim-theme"
+merged = 0
 
 
 [[custom_plugins]]
 name = "folke/twilight.nvim"
 merged = 0
 
+[[custom_plugins]]
+name = "sonph/onehalf"
+merged = 0
+
+[[custom_plugins]]
+name = "kyoz/purify"
+merged = 0
+
+
+[[custom_plugins]]
+name = "nightsense/carbonized"
+merged = 0
+
+[[custom_plugins]]
+name = "nightsense/stellarized"
+merged = 0
+
+
+[[custom_plugins]]
+name = "junegunn/seoul256.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "ayu-theme/ayu-vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "nightsense/cosmic_latte"
+merged = 0
+
+
+[[custom_plugins]]
+name = "romainl/flattened"
+merged = 0
+
+
+[[custom_plugins]]
+name = "glepnir/oceanic-material"
+merged = 0
+
+
+[[custom_plugins]]
+name = "Rigellute/shades-of-purple.vim"
+merged = 0
+
+[[custom_plugins]]
+name = "drewtempelmeyer/palenight.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "evturn/cosmic-barf"
+merged = 0
+
+
+[[custom_plugins]]
+name = "lifepillar/vim-gruvbox8"
+merged = 0
+
+
+[[custom_plugins]]
+name = "machakann/vim-colorscheme-kemonofriends"
+merged = 0
+
+
+[[custom_plugins]]
+name = "stulzer/heroku-colorscheme"
+merged = 0
+
+
+[[custom_plugins]]
+name = "vim-scripts/nightshade.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "bluz71/vim-moonfly-colors"
+merged = 0
+
+
+[[custom_plugins]]
+name = "mangeshrex/everblush.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "bluz71/vim-moonfly-colors"
+merged = 0
+
+
+[[custom_plugins]]
+name = "wimstefan/Lightning"
+merged = 0
+
+
+[[custom_plugins]]
+name = "wsniper/vim-color-theme-protect-eyes"
+merged = 0
+
+
+[[custom_plugins]]
+name = "ghifarit53/tokyonight-vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "vim-scripts/donbass.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "megantiu/true.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "raphamorim/lucario"
+merged = 0
+
+
+[[custom_plugins]]
+name = "atrnh/magical-girl-vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "atrnh/magical-girl-vim"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "ghifarit53/tokyonight-vim"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "tjammer/blandon.vim"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "schickele/vim-fruchtig"
+merged = 0
+
+
+[[custom_plugins]]
+name = "yassinebridi/vim-purpura"
+merged = 0
+
+
+[[custom_plugins]]
+name = "nightsense/snow"
+merged = 0
+
+
+[[custom_plugins]]
+name = "chriskempson/base16-vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "phanviet/vim-monokai-pro"
+merged = 0
+
+
+[[custom_plugins]]
+name = "colepeters/spacemacs-theme.vim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "sainnhe/gruvbox-material"
+merged = 0
+
+
+[[custom_plugins]]
+name = "nightsense/vimspectr"
+merged = 0
+
+
+[[custom_plugins]]
+name = "crusoexia/vim-monokai"
+merged = 0
+
+
+[[custom_plugins]]
+name = "jnurmine/Zenburn"
+merged = 0
+
+
+[[custom_plugins]]
+name = "kristijanhusak/vim-hybrid-material"
+merged = 0
+
+
+[[custom_plugins]]
+name = "mhartington/oceanic-next"
+merged = 0
+
+
+[[custom_plugins]]
+name = "Rigellute/rigel"
+merged = 0
+
+
+[[custom_plugins]]
+name = "rakr/vim-one"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "wadackel/vim-dogrun"
+merged = 0
 
 
 
 
+[[custom_plugins]]
+name = "john2x/flatui.vim"
+merged = 0
 
 
 
 
+[[custom_plugins]]
+name = "kjssad/quantum.vim"
+merged = 0
 
 
 
 
+[[custom_plugins]]
+name = "protesilaos/prot16-vim"
+merged = 0
 
 
 
 
+[[custom_plugins]]
+name = "tamlok/detorte"
+merged = 0
 
 
 
 
+[[custom_plugins]]
+name = "rakr/vim-colors-rakr"
+merged = 0
 
+
+
+
+[[custom_plugins]]
+name = "romgrk/github-light.vim"
+merged = 0
+
+[[custom_plugins]]
+name = "ashfinal/vim-colors-paper"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "machakann/vim-colorscheme-tatami"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "machakann/vim-colorscheme-snowtrek"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "lorry-lee/vim-ayumi"
+merged = 0
+
+
+
+
+[[custom_plugins]]
+name = "severij/vadelma"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "whzup/greent.vim"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "stulzer/mitormk-laser"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "rktjmp/lush.nvim"
+merged = 0
+
+
+
+[[custom_plugins]]
+name = "alaric/nortia.nvim"
+merged = 0
+
+[[custom_plugins]]
+name = "rafamadriz/neon"
+merged = 0
+
+
+[[custom_plugins]]
+name = "shaunsingh/moonlight.nvim"
+merged = 0
+
+
+[[custom_plugins]]
+name = "Iron-E/nvim-highlite"
+merged = 0
 
 
 

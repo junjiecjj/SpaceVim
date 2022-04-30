@@ -1709,7 +1709,170 @@ call SpaceVim#custom#SPC('nmap', ['c', 'c'], '<Plug>NERDCommenterInvert', 'comme
 let g:spacevim_colorscheme = 'onedark'
 let g:spacevim_guifont='CascadiaCove\ Nerd\ Font:h12'
 
+colorscheme SpaceVim
 
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""自定义"配色方案"""""""""""""""""""""""""""""""""""'""'""
+
+" "/usr/share/vim/vim81/colors/ 目录中包含了大多数文件类型的语法高亮插件。
+" hi clear
+
+
+if strftime('%H') >= 7 && strftime('%H') < 23
+    set background=light
+    let ayucolor="light"  " for light version of theme
+    let themes = [
+        \ 'cosmic_latte', 'carbonized-light', 'ayu', 'c16gui', 'cake16', 'carrot', 'cleanphp',
+        \ 'colorful',  'flattened_light', 'github', 'PaperColor', 'gobo', 'gruvbox', 'habiLight',
+        \ 'navajo',  'fine_blue', 'nightshade_print_modified', 'nightshade_print',
+        \ 'pencil', 'earth', 'tcsoft',  'phpx', 'professional', 'rainbow_autumn', 'NeoSolarized',
+        \ 'seagull',  'snow', 'solarized8', 'solarized8_light_high', 'solarized8_high', 'stellarized',
+        \ 'thegoodluck', 'winter', 'violet', 'space_vim_theme', 'Atelier_LakesideLight', 'Atelier_SeasideLight',
+	    \ 'kemonofriends', 'one', 'onehalflight', 'lucario', 'gruvbox8_soft', 'ayumi',
+        \ 'rakr-light', 'rakr', 'lightning', 'fruchtig', 'tatami', 'snowtrek', 'donbass', 'blandon',
+	    \ 'vadelma', 'greent', 'fruit', 'nortia-nvim',
+        \ ]
+    " autocmd vimenter * ++nested colorscheme PaperColor
+    hi CursorColumn      ctermbg=250
+    hi CursorColumn      guibg= #bcbcbc
+else
+    set background=dark
+    let ayucolor="mirage"  " for light version of theme
+    let themes = [
+        \ 'solarized8_dark_high' , 'github','NeoSolarized',
+        \ 'flattened_dark' ,  'lilydjwg_dark_modified', 'molokai','umber_green','petrel','detorte',
+        \ 'solarized8_flat', 'solarized8_low', 'solarized8_higt','solarized8' ,'lilydjwg_dark',
+        \ 'PaperColor', 'gruvbox8_soft','gruvbox8_hard','violet','lucario','palenight','rigel',
+        \ 'shades_of_purple','cobalt','cobaltish','cosmic-barf','tokyonight','true','purpura',
+        \ ]
+    " autocmd vimenter * ++nested colorscheme lilydjwg_dark_modified
+    hi CursorColumn      ctermbg=237
+    hi CursorColumn      guibg= #3a3a3a
+endif
+
+" exe 'autocmd vimenter * ++nested colorscheme '.themes[localtime() % len(themes)]
+set background=dark
+colorscheme  solarized8_flat
+" exe 'colorscheme '.themes[localtime() % len(themes)]
+" autocmd vimenter * ++nested colorscheme solarized8_higt
+
+
+" 黑色：carbonized_dark, SolarizedDark_modified ,NeoSolarized, colorful256, drakblack, earth, fine_blue, flattened_dark , github, lilydjwg_dark_modified, molokai, solarized8 , solarized8_flat, solarized8_low, solarized8_higt,umber_green,
+
+" 白色：cosmic_latte，carbonized_light, ayu,NeoSolarized, blacklight, bmichaelsen, c16gui, cake16, carrot, cleanphp, colorful,  flattened_light,github,gabo,greygull, gruvbox, habLight, navajo,  nicotine,nightshade_print_modified,nightshade_print, pencil, petrel, phpx, , , ,professional,rainbow_autumn,relaxedgreen,redstring,seagull,sf,snow,solarized8 , solarized8_flat, solarized8_low, solarized8_higt,stellarized, thegoodluck,winter,zellner,
+
+" autocmd FileType  c,cpp            colorscheme   kemonofriends
+" autocmd FileType  sh               colorscheme   true
+" autocmd FileType  python           colorscheme   purpura
+" autocmd FileType  vim              colorscheme   donbass
+" autocmd FileType  text             colorscheme   seagull
+" autocmd FileType  xterm            colorscheme   ayumi
+" autocmd FileType  markdown         colorscheme   donbass
+" autocmd FileType  zsh              colorscheme   fruchtig
+
+nnoremap c1 :set background=dark<CR>:colorscheme lilydjwg_dark<CR> :AirlineTheme base16_colors<CR>
+nnoremap c2 :set background=dark<CR>:colorscheme lilydjwg_dark_modified<CR>:AirlineTheme base16_colors<CR>
+nnoremap c3 :set background=dark<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_colors<CR>
+nnoremap c4 :set background=dark<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors<CR>
+nnoremap c5 :set background=dark<CR>:colorscheme flattened_dark<CR>:AirlineTheme base16_colors<CR>
+nnoremap c6 :set background=dark<CR>:colorscheme true<CR>:AirlineTheme base16_colors<CR>
+nnoremap c7 :set background=dark<CR>:colorscheme purpura<CR>:AirlineTheme base16_colors<CR>
+
+nnoremap c11 :set background=light<CR>:colorscheme colorful<CR>:AirlineTheme base16_colors<CR>
+nnoremap c12 :set background=light<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors<CR>
+nnoremap c13 :set background=light<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_colors<CR>
+nnoremap c14 :set background=light<CR>:colorscheme flattened_light<CR>:AirlineTheme base16_colors<CR>
+nnoremap c15 :set background=light<CR>:colorscheme seagull<CR>:AirlineTheme base16_colors<CR>
+nnoremap c16 :set background=light<CR>:colorscheme PaperColor<CR>:AirlineTheme base16_colors<CR>
+nnoremap c17 :set background=light<CR>:colorscheme kemonofriends<CR>:AirlineTheme base16_colors<CR>
+nnoremap c18 :set background=light<CR>:colorscheme donbass<CR>:AirlineTheme base16_colors<CR>
+nnoremap c19 :set background=light<CR>:colorscheme greent<CR>:AirlineTheme base16_colors<CR>
+
+" 光标所在的屏幕行 ,是让光标所在行整一行都显示下划线的，就是加一条水平下划线）
+" hi CursorLine       ctermbg=234   cterm=underline
+" hi CursorLine         ctermbg=NONE         cterm=underline
+" hi CursorLine         guibg=NONE   gui=underline
+"
+"
+" 可视模式的选择区
+" hi Visual            ctermfg=NONE          ctermbg=237
+" hi Visual           guifg=NONE           guibg=#ffffff
+"
+" hi VisualNOS               ctermfg=NONE    ctermbg=237
+" hi VisualNOS              guifg=NONE       guibg=#8B8386
+"
+" 光标所在的字符
+" hi Cursor           ctermfg=196  ctermbg=51
+" hi  Cursor           guifg=white   guibg=green
+"
+"
+"分离垂直分割窗口的列
+" hi VertSplit       ctermfg=16      ctermbg=10   cterm=bold
+" hi VertSplit       guifg=#000000   guibg=#00FF00   cterm=bold
+"
+"|more-prompt|，文件更改后:q提示是否保存的颜色
+" hi MoreMsg ctermfg=11   ctermbg=16  cterm=BOLD term=Bold
+" hi MoreMsg guifg=#FFD700   guibg=#000000  gui=BOLD
+"
+" "警告消息
+" hi WarningMsg      ctermfg=231        cterm=bold
+" hi WarningMsg      guifg=#CDCDB4  guibg=#000000   cterm=bold
+"
+"当前窗口的状态行，以及wildmenu补全的非当前匹配颜色
+" hi StatusLine ctermfg=15    ctermbg=16  cterm=bold
+" hi StatusLine guifg=#E0FFFF   guibg=#000000   gui=bold
+"
+" wildmenu补全的当前匹配
+" hi WildMenu    ctermfg=46   ctermbg=16  cterm=BOLD  term=bold
+" hi WildMenu    guifg=#00FF00   guibg=#000000  gui=BOLD
+"
+" vim最底下一行(--插入--)的颜色,showmode 消息(INSERT)
+" hi ModeMsg         ctermfg=202  cterm=bold
+" hi ModeMsg         guifg=#CD9B1D  gui=bold
+"
+" 提示(请按Enter或其他命令继续)的颜色
+" hi Question        ctermfg=11  ctermbg=16
+" hi Question        guifg=#EEEE00  guibg=#000000
+"
+"
+" "命令行上的错误信息 <!--more-->
+" hi ErrorMsg        ctermfg=199    ctermbg=16   cterm=bold
+" hi ErrorMsg        guifg=#C71585   guibg=#000000     gui=bold
+"
+"用于关闭的折叠的行
+" hi Folded          ctermfg=29          ctermbg=16
+" hi Folded          guifg=#66CD00
+"
+"Nerdtree目录树颜色
+" hi Directory       ctermfg=46               cterm=bold
+" hi Directory       guifg=#00FF00               gui=bold
+"
+" complete menu
+" hi Pmenu      ctermfg=0       ctermbg=243
+" hi Pmenu      guifg=#000000    guibg=darkgrey
+"
+" 弹出菜单选中项目
+" hi    PmenuSel   ctermfg=196   ctermbg=251
+" hi    PmenuSel   guifg=darkgrey guibg=black
+"
+" 弹出菜单滚动条。
+" hi    PmenuSbar        ctermbg=15
+" hi    PmenuSbar        guibg=#FFFFFF
+"
+" 弹出菜单滚动条的拇指, 和上面一一对应
+" hi    PmenuThumb      ctermbg=34    cterm=bold
+" hi    PmenuThumb      guibg=#228B22    gui=bold
+"
+" 没有标签的地方
+" hi  TabLineFill   ctermfg=2     ctermbg=246     term=Bold   cterm=bold
+"
+" 窗口尾部的'~'和 '@'
+" hi NonText         ctermfg=1  cterm=bold
+" hi NonText         guifg=#FF0000  cterm=bold
+
+" " "特殊键，字符和'listchars'
+" hi SpecialKey         cterm=bold
+" hi SpecialKey      guifg=#00FFFF  gui=bold
+"""""""""""""""""""""""""""""""""""""""""""""""设置颜色结束"""""""""""""""""""""""""""""""""""""
 
 
 
