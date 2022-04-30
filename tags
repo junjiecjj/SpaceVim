@@ -14,8 +14,6 @@
 ,	autoload/myspacevim.vim	/^    nmap , <Plug>(coc-smartf-repeat-opposite)$/;"	m
 -	autoload/myspacevim.vim	/^    nnoremap - Nzz$/;"	m
 -	init.vim	/^nnoremap - Nzz$/;"	m
-3u	autoload/myspacevim.vim	/^        nnoremap <silent><buffer><expr> 3u  defx#do_action('cd', ['..\/..\/..'])$/;"	m
-4u	autoload/myspacevim.vim	/^        nnoremap <silent><buffer><expr> 4u  defx#do_action('cd', ['..\/..\/..\/..'])$/;"	m
 ;	autoload/myspacevim.vim	/^    nmap ; <Plug>(coc-smartf-repeat)$/;"	m
 ;a	autoload/myspacevim.vim	/^    nnoremap  ;a :bp<CR>$/;"	m
 ;a	init.vim	/^nnoremap  ;a :bp<CR>$/;"	m
@@ -170,17 +168,13 @@
 <F12>	init.vim	/^nnoremap <silent> <F12> :call AdjustFontSize('+')<CR>$/;"	m
 <F12>	init.vim	/^onoremap <silent> <F12> <Esc>:call AdjustFontSize('+')<CR>$/;"	m
 <F12>	init.vim	/^vnoremap <silent> <F12> <Esc>:call AdjustFontSize('+')<CR>$/;"	m
-<F2>	autoload/myspacevim.vim	/^    nnoremap  <F2>  :Vista!!<CR>$/;"	m
 <F3>	autoload/myspacevim.vim	/^    nnoremap <F3> :call HideNumber()<CR>$/;"	m
 <F3>	init.vim	/^nnoremap <F3> :call HideNumber()<CR>$/;"	m
 <F4>	autoload/myspacevim.vim	/^    nnoremap  <F4>  :call QuickRun()<CR>$/;"	m
 <F7>	autoload/myspacevim.vim	/^    map <F7> :call Rungdb()<CR>$/;"	m
 <F7>	init.vim	/^map <F7> :call Rungdb()<CR>$/;"	m
-<F8>	autoload/myspacevim.vim	/^        nnoremap <silent> <F8> :TlistToggle<CR>$/;"	m
 <LEADER><CR>	autoload/myspacevim.vim	/^    map <LEADER><CR> :nohlsearch<CR>$/;"	m
 <LEADER><CR>	init.vim	/^map <LEADER><CR> :nohlsearch<CR>$/;"	m
-<LEADER>df	autoload/myspacevim.vim	/^    noremap <LEADER>df :Defx  -search=`expand('%:p')` -toggle <cr>$/;"	m
-<LEADER>df	autoload/myspacevim.vim	/^    noremap <LEADER>df :Defx<CR>$/;"	m
 <LEADER>q	autoload/myspacevim.vim	/^    noremap <LEADER>q <C-w>j:q<CR>$/;"	m
 <LEADER>q	init.vim	/^noremap <LEADER>q <C-w>j:q<CR>$/;"	m
 <LEADER>sc	autoload/myspacevim.vim	/^    noremap <LEADER>sc :set spell!<CR>$/;"	m
@@ -189,26 +183,18 @@
 <LEADER>st	autoload/myspacevim.vim	/^    vnoremap <LEADER>st :s\/    \/\\t\/g$/;"	m
 <LEADER>st	init.vim	/^nnoremap <LEADER>st :%s\/    \/\\t\/g$/;"	m
 <LEADER>st	init.vim	/^vnoremap <LEADER>st :s\/    \/\\t\/g$/;"	m
-<Leader><Leader>j	autoload/myspacevim.vim	/^    map <Leader><Leader>j <Plug>(easymotion-j)$/;"	m
-<Leader><Leader>k	autoload/myspacevim.vim	/^    map <Leader><Leader>k <Plug>(easymotion-k)$/;"	m
 <Leader><S-Tab>	autoload/myspacevim.vim	/^    noremap <Leader><S-Tab> :Bw!<CR>$/;"	m
 <Leader><S-Tab>	init.vim	/^noremap <Leader><S-Tab> :Bw!<CR>$/;"	m
 <Leader><Tab>	autoload/myspacevim.vim	/^    noremap <Leader><Tab> :Bw<CR>$/;"	m
 <Leader><Tab>	init.vim	/^noremap <Leader><Tab> :Bw<CR>$/;"	m
-<Leader><leader>.	autoload/myspacevim.vim	/^    map <Leader><leader>. <Plug>(easymotion-repeat)$/;"	m
-<Leader><leader>h	autoload/myspacevim.vim	/^    map <Leader><leader>h <Plug>()$/;"	m
-<Leader><leader>l	autoload/myspacevim.vim	/^    map <Leader><leader>l <Plug>(easymotion-lineforward)$/;"	m
 <Leader>e	autoload/myspacevim.vim	/^        map <Leader>e :tabe ~\/.config\/nvim\/init.vim<CR>    "新标签页打开"$/;"	m
 <Leader>e	autoload/myspacevim.vim	/^        map <Leader>e :tabe ~\/.vimrc<CR>$/;"	m
 <Leader>e	init.vim	/^    map <Leader>e :tabe ~\/.config\/nvim\/init.vim<CR>    "新标签页打开"$/;"	m
 <Leader>e	init.vim	/^    map <Leader>e :tabe ~\/.vimrc<CR>$/;"	m
-<Leader>nt	autoload/myspacevim.vim	/^    noremap <Leader>nt :NERDTreeToggle<CR>$/;"	m
 <Leader>s	autoload/myspacevim.vim	/^        map <Leader>s :source  ~\/.config\/nvim\/init.vim<cr>$/;"	m
 <Leader>s	autoload/myspacevim.vim	/^        map <Leader>s :source  ~\/.vimrc<cr>$/;"	m
 <Leader>s	init.vim	/^    map <Leader>s :source  ~\/.config\/nvim\/init.vim<cr>$/;"	m
 <Leader>s	init.vim	/^    map <Leader>s :source  ~\/.vimrc<cr>$/;"	m
-<Leader>tl	autoload/myspacevim.vim	/^        noremap <Leader>tl :TlistToggle<CR>$/;"	m
-<Leader>ud	autoload/myspacevim.vim	/^    noremap <Leader>ud :UndotreeToggle<CR> " \\ud 打开undotree面板$/;"	m
 <Leader>w	autoload/myspacevim.vim	/^    nmap <Leader>w :w<CR>$/;"	m
 <Leader>w	autoload/myspacevim.vim	/^    nnoremap <Leader>w  :w<CR>$/;"	m
 <Leader>w	init.vim	/^nmap <Leader>w :w<CR>$/;"	m
@@ -331,6 +317,7 @@ AdjustFontSize	autoload/myspacevim.vim	/^    function! AdjustFontSize(amount)$/;
 AdjustFontSize	init.vim	/^function! AdjustFontSize(amount)$/;"	f
 Bigger	autoload/myspacevim.vim	/^    command! Bigger :let &guifont = substitude(&guifont, '\\d\\+$', '\\=submatch(0)+1',")$/;"	c
 Bigger	init.vim	/^command! Bigger :let &guifont = substitude(&guifont, '\\d\\+$', '\\=submatch(0)+1',")$/;"	c
+Buf_total_num	init.vim	/^function! Buf_total_num()$/;"	f
 CheckUpdate	autoload/myspacevim.vim	/^    function! CheckUpdate(timer)$/;"	f
 CheckUpdate	init.vim	/^function! CheckUpdate(timer)$/;"	f
 ClosePair	autoload/myspacevim.vim	/^    function! ClosePair(char)$/;"	f
@@ -346,6 +333,7 @@ DisplayFontInfo	init.vim	/^function! DisplayFontInfo()$/;"	f
 DisplayFontSelector	autoload/myspacevim.vim	/^    function! DisplayFontSelector()$/;"	f
 DisplayFontSelector	init.vim	/^function! DisplayFontSelector()$/;"	f
 F	autoload/myspacevim.vim	/^    nmap F <Plug>(coc-smartf-backward)$/;"	m
+File_size	init.vim	/^function! File_size(f)$/;"	f
 GetFontInfo	autoload/myspacevim.vim	/^    function! GetFontInfo()$/;"	f
 GetFontInfo	init.vim	/^function! GetFontInfo()$/;"	f
 GetSystem	autoload/myspacevim.vim	/^    function! GetSystem()$/;"	f
@@ -357,7 +345,6 @@ HideNumber	init.vim	/^function! HideNumber()$/;"	f
 J	autoload/myspacevim.vim	/^    vnoremap J :m '>+1<CR>gv=gv$/;"	m
 K	autoload/myspacevim.vim	/^    vnoremap K :m '<-2<CR>gv=gv$/;"	m
 L	autoload/myspacevim.vim	/^    nnoremap L 10l$/;"	m
-L	autoload/myspacevim.vim	/^    nnoremap L :UndotreeToggle<CR>       " F3 打开undotree面板$/;"	m
 L	autoload/myspacevim.vim	/^    nnoremap L g_$/;"	m
 L	init.vim	/^nnoremap L 10l$/;"	m
 L	init.vim	/^nnoremap L g_$/;"	m
@@ -392,15 +379,6 @@ Smartf	autoload/myspacevim.vim	/^    augroup Smartf$/;"	a
 SpaceVim的配置文件	README.md	/^# SpaceVim的配置文件$/;"	c
 TN	autoload/myspacevim.vim	/^    nnoremap  TN :call NumberToggle()<cr>$/;"	m
 TN	init.vim	/^nnoremap  TN :call NumberToggle()<cr>$/;"	m
-Tlist_Auto_Open	autoload/myspacevim.vim	/^    let Tlist_Auto_Open = 0$/;"	v
-Tlist_Auto_Update	autoload/myspacevim.vim	/^    let Tlist_Auto_Update = 1$/;"	v
-Tlist_Ctags_Cmd	autoload/myspacevim.vim	/^    let Tlist_Ctags_Cmd = '\/usr\/bin\/ctags'$/;"	v
-Tlist_Exit_OnlyWindow	autoload/myspacevim.vim	/^    let Tlist_Exit_OnlyWindow = 1$/;"	v
-Tlist_Show_One_File	autoload/myspacevim.vim	/^    let Tlist_Show_One_File = 1$/;"	v
-Tlist_Sort_Type	autoload/myspacevim.vim	/^    let Tlist_Sort_Type="name"$/;"	v
-Tlist_Use_Right_Window	autoload/myspacevim.vim	/^    let Tlist_Use_Right_Window = 1$/;"	v
-Tlist_Use_SingleClick	autoload/myspacevim.vim	/^    let Tlist_Use_SingleClick=1$/;"	v
-Tlist_WinWidth	autoload/myspacevim.vim	/^    let Tlist_WinWidth = 30$/;"	v
 ToggleCursor	autoload/myspacevim.vim	/^    function ToggleCursor() abort$/;"	f
 ToggleCursor	init.vim	/^function ToggleCursor() abort$/;"	f
 U	autoload/myspacevim.vim	/^    nnoremap U 10k$/;"	m
@@ -426,35 +404,60 @@ U	init.vim	/^nnoremap U 10k$/;"	m
 `rr	autoload/myspacevim.vim	/^    map `rr 20zl$/;"	m
 `rr	init.vim	/^map `rr 20zl$/;"	m
 autosave	init.vim	/^let autosave=10$/;"	v
+ayucolor	init.vim	/^    let ayucolor="light"  " for light version of theme$/;"	v
+ayucolor	init.vim	/^    let ayucolor="mirage"  " for light version of theme$/;"	v
+c1	autoload/myspacevim.vim	/^    nnoremap c1 :set background=dark<CR>:colorscheme lilydjwg_dark<CR> :AirlineTheme base16_colo/;"	m
+c1	init.vim	/^nnoremap c1 :set background=dark<CR>:colorscheme lilydjwg_dark<CR> :AirlineTheme base16_colors<C/;"	m
+c11	autoload/myspacevim.vim	/^    nnoremap c11 :set background=light<CR>:colorscheme colorful<CR>:AirlineTheme base16_colors<C/;"	m
+c11	init.vim	/^nnoremap c11 :set background=light<CR>:colorscheme colorful<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c12	autoload/myspacevim.vim	/^    nnoremap c12 :set background=light<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colo/;"	m
+c12	init.vim	/^nnoremap c12 :set background=light<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors<C/;"	m
+c13	autoload/myspacevim.vim	/^    nnoremap c13 :set background=light<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_c/;"	m
+c13	init.vim	/^nnoremap c13 :set background=light<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_color/;"	m
+c14	autoload/myspacevim.vim	/^    nnoremap c14 :set background=light<CR>:colorscheme flattened_light<CR>:AirlineTheme base16_c/;"	m
+c14	init.vim	/^nnoremap c14 :set background=light<CR>:colorscheme flattened_light<CR>:AirlineTheme base16_color/;"	m
+c15	autoload/myspacevim.vim	/^    nnoremap c15 :set background=light<CR>:colorscheme seagull<CR>:AirlineTheme base16_colors<CR/;"	m
+c15	init.vim	/^nnoremap c15 :set background=light<CR>:colorscheme seagull<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c16	autoload/myspacevim.vim	/^    nnoremap c16 :set background=light<CR>:colorscheme PaperColor<CR>:AirlineTheme base16_colors/;"	m
+c16	init.vim	/^nnoremap c16 :set background=light<CR>:colorscheme PaperColor<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c17	autoload/myspacevim.vim	/^    nnoremap c17 :set background=light<CR>:colorscheme kemonofriends<CR>:AirlineTheme base16_col/;"	m
+c17	init.vim	/^nnoremap c17 :set background=light<CR>:colorscheme kemonofriends<CR>:AirlineTheme base16_colors</;"	m
+c18	autoload/myspacevim.vim	/^    nnoremap c18 :set background=light<CR>:colorscheme donbass<CR>:AirlineTheme base16_colors<CR/;"	m
+c18	init.vim	/^nnoremap c18 :set background=light<CR>:colorscheme donbass<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c19	autoload/myspacevim.vim	/^    nnoremap c19 :set background=light<CR>:colorscheme greent<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c19	init.vim	/^nnoremap c19 :set background=light<CR>:colorscheme greent<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c2	autoload/myspacevim.vim	/^    nnoremap c2 :set background=dark<CR>:colorscheme lilydjwg_dark_modified<CR>:AirlineTheme bas/;"	m
+c2	init.vim	/^nnoremap c2 :set background=dark<CR>:colorscheme lilydjwg_dark_modified<CR>:AirlineTheme base16_/;"	m
+c3	autoload/myspacevim.vim	/^    nnoremap c3 :set background=dark<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_col/;"	m
+c3	init.vim	/^nnoremap c3 :set background=dark<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_colors</;"	m
+c4	autoload/myspacevim.vim	/^    nnoremap c4 :set background=dark<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors/;"	m
+c4	init.vim	/^nnoremap c4 :set background=dark<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c5	autoload/myspacevim.vim	/^    nnoremap c5 :set background=dark<CR>:colorscheme flattened_dark<CR>:AirlineTheme base16_colo/;"	m
+c5	init.vim	/^nnoremap c5 :set background=dark<CR>:colorscheme flattened_dark<CR>:AirlineTheme base16_colors<C/;"	m
+c6	autoload/myspacevim.vim	/^    nnoremap c6 :set background=dark<CR>:colorscheme true<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c6	init.vim	/^nnoremap c6 :set background=dark<CR>:colorscheme true<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c7	autoload/myspacevim.vim	/^    nnoremap c7 :set background=dark<CR>:colorscheme purpura<CR>:AirlineTheme base16_colors<CR>$/;"	m
+c7	init.vim	/^nnoremap c7 :set background=dark<CR>:colorscheme purpura<CR>:AirlineTheme base16_colors<CR>$/;"	m
 ccompile	autoload/myspacevim.vim	/^    augroup ccompile$/;"	a
 ccompile	init.vim	/^augroup ccompile$/;"	a
 comment	autoload/myspacevim.vim	/^    augroup comment$/;"	a
 comment	init.vim	/^augroup comment$/;"	a
 crun	autoload/myspacevim.vim	/^    augroup crun$/;"	a
 crun	init.vim	/^augroup crun$/;"	a
-df	autoload/myspacevim.vim	/^    nnoremap <silent> df :Defx  -search=`expand('%:p')` -toggle <cr>$/;"	m
 f	autoload/myspacevim.vim	/^    nmap f <Plug>(coc-smartf-forward)$/;"	m
 g:CheckUpdateStarted	autoload/myspacevim.vim	/^        let g:CheckUpdateStarted=1$/;"	v
 g:CheckUpdateStarted	init.vim	/^    let g:CheckUpdateStarted=1$/;"	v
-g:EasyMotion_smartcase	autoload/myspacevim.vim	/^    let g:EasyMotion_smartcase = 1$/;"	v
 g:Lf_RecurseSubmodules	autoload/myspacevim.vim	/^    let g:Lf_RecurseSubmodules = 1$/;"	v
-g:NERDTreeDirArrowCollapsible	autoload/myspacevim.vim	/^        let g:NERDTreeDirArrowCollapsible = '▾'$/;"	v
-g:NERDTreeDirArrowExpandable	autoload/myspacevim.vim	/^        let g:NERDTreeDirArrowExpandable = '▸'$/;"	v
-g:NERDTreeIndicatorMapCustom	autoload/myspacevim.vim	/^        let g:NERDTreeIndicatorMapCustom = {$/;"	v
-g:NERDTreeShowIgnoredStatus	autoload/myspacevim.vim	/^        let g:NERDTreeShowIgnoredStatus = 1$/;"	v
-g:bookmark_auto_close	autoload/myspacevim.vim	/^        let g:bookmark_auto_close = 1                  " 默认值为0(否)，在 quickfix 窗口/;"	v
 g:bookmark_auto_close	autoload/myspacevim.vim	/^    let g:bookmark_auto_close = 1$/;"	v
-g:bookmark_auto_save	autoload/myspacevim.vim	/^        let g:bookmark_auto_save = 0                   " 默认值为1(是)，是否自动保存/;"	v
-g:bookmark_center	autoload/myspacevim.vim	/^        let g:bookmark_center = 1                      " 默认值为0(否)，是否跳转后的/;"	v
-g:bookmark_highlight_lines	autoload/myspacevim.vim	/^        let g:bookmark_highlight_lines = 1             " 默认值为0(否)，是否高亮书签/;"	v
-g:bookmark_save_per_working_dir	autoload/myspacevim.vim	/^        let g:bookmark_save_per_working_dir = 1        " 默认值为0(否)，是否针对工作/;"	v
-g:bookmark_show_warning	autoload/myspacevim.vim	/^        let g:bookmark_show_warning = 0                " 默认值为1(是)，删除所有书签/;"	v
-g:bookmark_sign	autoload/myspacevim.vim	/^        let g:bookmark_sign = '♥'                     " 书签符号设置（默认⚑）$/;"	v
-g:defx_icons_column_length	autoload/myspacevim.vim	/^    let g:defx_icons_column_length = 2$/;"	v
-g:defx_icons_mark_icon	autoload/myspacevim.vim	/^    let g:defx_icons_mark_icon = ''$/;"	v
-g:defx_icons_parent_icon	autoload/myspacevim.vim	/^    let g:defx_icons_parent_icon = ""$/;"	v
-g:disable_rainbow_csv_autodetect	autoload/myspacevim.vim	/^    let g:disable_rainbow_csv_autodetect = 1$/;"	v
 g:git_messenger_always_into_popup	autoload/myspacevim.vim	/^    let g:git_messenger_always_into_popup = v:true$/;"	v
+g:gutentags_cache_dir	autoload/myspacevim.vim	/^    let g:gutentags_cache_dir = s:vim_tags$/;"	v
+g:gutentags_ctags_exclude	autoload/myspacevim.vim	/^    let g:gutentags_ctags_exclude=['.ccls-cache','build','install']$/;"	v
+g:gutentags_ctags_extra_args	autoload/myspacevim.vim	/^    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']$/;"	v
+g:gutentags_ctags_extra_args	autoload/myspacevim.vim	/^    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']$/;"	v
+g:gutentags_ctags_extra_args	autoload/myspacevim.vim	/^    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']$/;"	v
+g:gutentags_ctags_tagfile	autoload/myspacevim.vim	/^    let g:gutentags_ctags_tagfile = '.tags'$/;"	v
+g:gutentags_modules	autoload/myspacevim.vim	/^    let g:gutentags_modules = ['ctags']$/;"	v
+g:gutentags_project_root	autoload/myspacevim.vim	/^    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']$/;"	v
 g:isGUI	autoload/myspacevim.vim	/^        let g:isGUI = 0$/;"	v
 g:isGUI	autoload/myspacevim.vim	/^        let g:isGUI = 1$/;"	v
 g:isGUI	init.vim	/^    let g:isGUI = 0$/;"	v
@@ -467,40 +470,20 @@ g:iswindows	autoload/myspacevim.vim	/^        let g:iswindows = 1$/;"	v
 g:iswindows	autoload/myspacevim.vim	/^    let g:iswindows = 0$/;"	v
 g:iswindows	init.vim	/^    let g:iswindows = 1$/;"	v
 g:iswindows	init.vim	/^let g:iswindows = 0$/;"	v
+g:mapleader	autoload/myspacevim.vim	/^    let g:mapleader = '\\'$/;"	v
 g:mkdp_auto_close	autoload/myspacevim.vim	/^    let g:mkdp_auto_close = 0$/;"	v
 g:neomake_enabled_c_makers	autoload/myspacevim.vim	/^    let g:neomake_enabled_c_makers = ['clang']$/;"	v
 g:neoterm_autoscroll	autoload/myspacevim.vim	/^    let g:neoterm_autoscroll = 1$/;"	v
 g:neoterm_autoscroll	init.vim	/^let g:neoterm_autoscroll = 1$/;"	v
-g:nerdtree_tabs_open_on_console_startup	autoload/myspacevim.vim	/^        let g:nerdtree_tabs_open_on_console_startup=1$/;"	v
-g:nerdtree_tabs_open_on_gui_startup	autoload/myspacevim.vim	/^        let g:nerdtree_tabs_open_on_gui_startup = 0   " 不打开$/;"	v
 g:quickmenu_options	autoload/myspacevim.vim	/^        let g:quickmenu_options = "LH"$/;"	v
-g:rainbow_active	autoload/myspacevim.vim	/^    let g:rainbow_active = 1$/;"	v
-g:rainbow_conf	autoload/myspacevim.vim	/^    let g:rainbow_conf = {$/;"	v
-g:rainbow_operators	autoload/myspacevim.vim	/^    let g:rainbow_operators=2$/;"	v
-g:rbpt_colorpairs	autoload/myspacevim.vim	/^    let g:rbpt_colorpairs = [$/;"	v
-g:rbpt_loadcmd_toggle	autoload/myspacevim.vim	/^    let g:rbpt_loadcmd_toggle = 0$/;"	v
-g:rbpt_max	autoload/myspacevim.vim	/^    let g:rbpt_max = 16$/;"	v
-g:rcsv_colorpairs	autoload/myspacevim.vim	/^    let g:rcsv_colorpairs = [['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', '/;"	v
-g:rcsv_delimiters	autoload/myspacevim.vim	/^    let g:rcsv_delimiters = ["\\t", ",", "^", "~#~"]$/;"	v
 g:space_vim_transp_bg	autoload/myspacevim.vim	/^    let g:space_vim_transp_bg = 1$/;"	v
 g:space_vim_transp_bg	init.vim	/^let g:space_vim_transp_bg = 1$/;"	v
 g:spacevim_colorscheme	init.vim	/^let g:spacevim_colorscheme = 'onedark'$/;"	v
 g:spacevim_enable_vimfiler_filetypeicon	autoload/myspacevim.vim	/^    let g:spacevim_enable_vimfiler_filetypeicon = 1$/;"	v
 g:spacevim_guifont	init.vim	/^let g:spacevim_guifont='CascadiaCove\\ Nerd\\ Font:h12'$/;"	v
-g:startify_bookmarks	autoload/myspacevim.vim	/^        let g:startify_bookmarks            = [$/;"	v
-g:startify_custom_footer	autoload/myspacevim.vim	/^        let g:startify_custom_footer = [$/;"	v
-g:startify_custom_header	autoload/myspacevim.vim	/^        let g:startify_custom_header = [$/;"	v
-g:startify_files_number	autoload/myspacevim.vim	/^        let g:startify_files_number = 6$/;"	v
-g:startify_session_autoload	autoload/myspacevim.vim	/^        let g:startify_session_autoload = 1$/;"	v
-g:startify_skiplist	autoload/myspacevim.vim	/^        let g:startify_skiplist = [$/;"	v
 g:table_mode_corner	autoload/myspacevim.vim	/^    let g:table_mode_corner='|'$/;"	v
 g:tablineclosebutton	autoload/myspacevim.vim	/^    let g:tablineclosebutton=1$/;"	v
 g:tablineclosebutton	init.vim	/^let g:tablineclosebutton=1$/;"	v
-g:tagbar_autopreview	autoload/myspacevim.vim	/^    let g:tagbar_autopreview = 0$/;"	v
-g:tagbar_ctags_bin	autoload/myspacevim.vim	/^    let g:tagbar_ctags_bin='\/usr\/bin\/ctags'$/;"	v
-g:tagbar_left	autoload/myspacevim.vim	/^    let g:tagbar_left = 1$/;"	v
-g:tagbar_sort	autoload/myspacevim.vim	/^    let g:tagbar_sort = 0$/;"	v
-g:tagbar_width	autoload/myspacevim.vim	/^    let g:tagbar_width=20$/;"	v
 g:terminal_color_0	autoload/myspacevim.vim	/^    let g:terminal_color_0  = '#000000'$/;"	v
 g:terminal_color_0	init.vim	/^let g:terminal_color_0  = '#000000'$/;"	v
 g:terminal_color_1	autoload/myspacevim.vim	/^    let g:terminal_color_1  = '#FF5555'$/;"	v
@@ -532,12 +515,8 @@ g:terminal_color_8	init.vim	/^let g:terminal_color_8  = '#4D4D4D'$/;"	v
 g:terminal_color_9	autoload/myspacevim.vim	/^    let g:terminal_color_9  = '#FF6E67'$/;"	v
 g:terminal_color_9	init.vim	/^let g:terminal_color_9  = '#FF6E67'$/;"	v
 g:tex_conceal	autoload/myspacevim.vim	/^        let g:tex_conceal = ""$/;"	v
-g:undotree_WindowLayout	autoload/myspacevim.vim	/^      let g:undotree_WindowLayout = 3$/;"	v
 g:vimtex_syntax_conceal_default	autoload/myspacevim.vim	/^    let g:vimtex_syntax_conceal_default = 0$/;"	v
 g:vimtex_view_method	autoload/myspacevim.vim	/^    let g:vimtex_view_method = 'zathura'$/;"	v
-g:vista_default_executive	autoload/myspacevim.vim	/^    let g:vista_default_executive = 'coc'$/;"	v
-g:vista_finder_alternative_executives	autoload/myspacevim.vim	/^    let g:vista_finder_alternative_executives = 'ctags'$/;"	v
-g:vista_sidebar_position	autoload/myspacevim.vim	/^    let g:vista_sidebar_position = "vertical topleft"$/;"	v
 g:winresizer_keycode_cancel	autoload/myspacevim.vim	/^    let g:winresizer_keycode_cancel = 113$/;"	v
 g:winresizer_start_key	autoload/myspacevim.vim	/^    let g:winresizer_start_key = '<space>wa'$/;"	v
 g:wintabs_autoclose_vim	autoload/myspacevim.vim	/^    let g:wintabs_autoclose_vim = 1$/;"	v
@@ -560,12 +539,10 @@ myspacevim#before	autoload/myspacevim.vim	/^function! myspacevim#before() abort$
 n	autoload/myspacevim.vim	/^    nnoremap <expr> n 'Nn'[v:searchforward]$/;"	m
 n	autoload/myspacevim.vim	/^    nnoremap n nzzzv$/;"	m
 n	init.vim	/^nnoremap <expr> n 'Nn'[v:searchforward]$/;"	m
-nc	autoload/myspacevim.vim	/^    map nc :NextColorScheme<CR>$/;"	m
 nocomment	autoload/myspacevim.vim	/^    augroup nocomment$/;"	a
 nocomment	init.vim	/^augroup nocomment$/;"	a
 pU	autoload/myspacevim.vim	/^        nnoremap pU  :PlugUpgrade<CR>$/;"	m
 pU	init.vim	/^    nnoremap pU  :PlugUpgrade<CR>$/;"	m
-pc	autoload/myspacevim.vim	/^    map pc :PreviousColorScheme<CR>$/;"	m
 pcl	autoload/myspacevim.vim	/^        nnoremap pcl  :PlugClean<CR>$/;"	m
 pcl	init.vim	/^    nnoremap pcl  :PlugClean<CR>$/;"	m
 pi	autoload/myspacevim.vim	/^        nnoremap pi  :PlugInstall<CR>$/;"	m
@@ -603,18 +580,14 @@ srh	autoload/myspacevim.vim	/^    nnoremap srh <C-w>b<C-w>K$/;"	m
 srh	init.vim	/^nnoremap srh <C-w>b<C-w>K$/;"	m
 srv	autoload/myspacevim.vim	/^    nnoremap srv <C-w>b<C-w>H$/;"	m
 srv	init.vim	/^nnoremap srv <C-w>b<C-w>H$/;"	m
-ss	autoload/myspacevim.vim	/^    nmap ss <Plug>(easymotion-s2)$/;"	m
 sv	autoload/myspacevim.vim	/^    nnoremap sv <C-w>t<C-w>H$/;"	m
 sv	init.vim	/^nnoremap sv <C-w>t<C-w>H$/;"	m
 sw	autoload/myspacevim.vim	/^    cnoremap sw w !sudo tee >\/dev\/null %$/;"	m
 tU	autoload/myspacevim.vim	/^    nnoremap tU :tab split<CR>$/;"	m
 tU	init.vim	/^nnoremap tU :tab split<CR>$/;"	m
-tb	autoload/myspacevim.vim	/^    map! tb <Esc> :TagbarToggle<CR>$/;"	m
-tb	autoload/myspacevim.vim	/^    nnoremap  tb :TagbarToggle<CR>$/;"	m
 tee	autoload/myspacevim.vim	/^    nnoremap tee :w !sudo tee %<cr>$/;"	m
 tee	init.vim	/^nnoremap tee :w !sudo tee %<cr>$/;"	m
-tl	autoload/myspacevim.vim	/^        noremap tl :TlistToggle<CR>$/;"	m
-tl	autoload/myspacevim.vim	/^    nnoremap  tl <Esc>:TlistToggle<Cr>$/;"	m
+themes	init.vim	/^    let themes = [$/;"	v
 tmn	autoload/myspacevim.vim	/^    nnoremap tmn :-tabmove<CR>$/;"	m
 tmn	init.vim	/^nnoremap tmn :-tabmove<CR>$/;"	m
 tmp	autoload/myspacevim.vim	/^    nnoremap tmp :+tabmove<CR>$/;"	m

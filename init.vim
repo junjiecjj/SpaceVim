@@ -1699,17 +1699,6 @@ endfunc
 """"""""""""""""""""""""""""""""""""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-" <SPC> c l 注释选择的行。一般我会V然后选择多行，然后按<SPC> c l注释掉选择的行。取消注释也是这样。c l就是comment lines的意思。
-" 如果觉得SPC c l稍微麻烦（不同字母嘛），添加下面的代码到init.vim。
-call SpaceVim#custom#SPC('nmap', ['c', 'c'], '<Plug>NERDCommenterInvert', 'comment or uncomment lines', 0)
-
-
-
-
-let g:spacevim_colorscheme = 'onedark'
-let g:spacevim_guifont='CascadiaCove\ Nerd\ Font:h12'
-
-colorscheme SpaceVim
 
 " """"""""""""""""""""""""""""""""""""""""""""""""""""""""自定义"配色方案"""""""""""""""""""""""""""""""""""'""'""
 
@@ -1749,12 +1738,11 @@ else
     hi CursorColumn      guibg= #3a3a3a
 endif
 
-" exe 'autocmd vimenter * ++nested colorscheme '.themes[localtime() % len(themes)]
-set background=dark
-colorscheme  solarized8_flat
+exe 'autocmd vimenter * ++nested colorscheme '.themes[localtime() % len(themes)]
+" set background=dark
+" colorscheme  solarized8_flat
 " exe 'colorscheme '.themes[localtime() % len(themes)]
 " autocmd vimenter * ++nested colorscheme solarized8_higt
-
 
 " 黑色：carbonized_dark, SolarizedDark_modified ,NeoSolarized, colorful256, drakblack, earth, fine_blue, flattened_dark , github, lilydjwg_dark_modified, molokai, solarized8 , solarized8_flat, solarized8_low, solarized8_higt,umber_green,
 
@@ -1879,19 +1867,374 @@ hi SpecialKey      guifg=#00FFFF  gui=bold
 
 
 
+""""""""""""""""""""""""""""""""""""""""配置底部状态栏"""""""""""""""""""""""""""""""""""""""""
+"
+" set statusline=%1*\%<%.50F\             "显示文件名和文件路径 (%<应该可以去掉)
+" set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
+" set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   "显示文件编码类型
+" set statusline+=%4*\ row:%l/%L,col:%c\ %*   "显示光标所在行和列
+" set statusline+=%5*\%3p%%\%*            "显示光标前文本所占总文本的比例
+" hi User1 cterm=none ctermfg=25 ctermbg=58
+" hi User2 cterm=none ctermfg=208 ctermbg=0
+" hi User3 cterm=none ctermfg=169 ctermbg=0
+" hi User4 cterm=none ctermfg=100 ctermbg=0
+" hi User5 cterm=none ctermfg=green ctermbg=0
+" hi Normal ctermfg=252 ctermbg=none
+"
+"
+"
 """""""""""""""""""""""""""""""""""""""""配置底部状态栏"""""""""""""""""""""""""""""""""""""""""
 
-set statusline=%1*\%<%.50F\             "显示文件名和文件路径 (%<应该可以去掉)
-set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
-set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   "显示文件编码类型
-set statusline+=%4*\ row:%l/%L,col:%c\ %*   "显示光标所在行和列
-set statusline+=%5*\%3p%%\%*            "显示光标前文本所占总文本的比例
-hi User1 cterm=none ctermfg=25 ctermbg=58
-hi User2 cterm=none ctermfg=208 ctermbg=0
-hi User3 cterm=none ctermfg=169 ctermbg=0
-hi User4 cterm=none ctermfg=100 ctermbg=0
-hi User5 cterm=none ctermfg=green ctermbg=0
-hi Normal ctermfg=252 ctermbg=none
+function! Buf_total_num()
+    return len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+endfunction
+function! File_size(f)
+    let l:size = getfsize(expand(a:f))
+    if l:size == 0 || l:size == -1 || l:size == -2
+        return ''
+    endif
+    if l:size < 1024
+        return l:size.' bytes'
+    elseif l:size < 1024*1024
+        return printf('%.1f', l:size/1024.0).'k'
+    elseif l:size < 1024*1024*1024
+        return printf('%.1f', l:size/1024.0/1024.0) . 'm'
+    else
+        return printf('%.1f', l:size/1024.0/1024.0/1024.0) . 'g'
+    endif
+endfunction
+set statusline=%<%1*[B-%n]%*
+" TOT is an abbreviation for total
+set statusline+=%2*[TOT:%{Buf_total_num()}]%*
+set statusline+=%3*\ %{File_size(@%)}\ %*
+set statusline+=%4*\ %F\ %*
+set statusline+=%5*『\ %{exists('g:loaded_ale')?ALEGetStatusLine():''}』%{exists('g:loaded_fugitive')?fugitive#statusline():''}%*
+set statusline+=%6*\ %m%r%y\ %*
+set statusline+=%=%7*\ %{&ff}\ \|\ %{\"\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"\ \|\"}\ %-14.(%l:%c%V%)%*
+set statusline+=%8*\ %P\ %*
+" default bg for statusline is 236 in space-vim-dark
+hi User1 cterm=bold ctermfg=232 ctermbg=179
+hi User2 cterm=None ctermfg=214 ctermbg=242
+hi User3 cterm=None ctermfg=251 ctermbg=240
+hi User4 cterm=bold ctermfg=169 ctermbg=239
+hi User5 cterm=None ctermfg=208 ctermbg=238
+hi User6 cterm=None ctermfg=246 ctermbg=237
+hi User7 cterm=None ctermfg=250 ctermbg=238
+hi User8 cterm=None ctermfg=249 ctermbg=240
+
+"===============================快捷键配置======================================"
+" <SPC> c l 注释选择的行。一般我会V然后选择多行，然后按<SPC> c l注释掉选择的行。取消注释也是这样。c l就是comment lines的意思。
+" 如果觉得SPC c l稍微麻烦（不同字母嘛），添加下面的代码到init.vim。
+call SpaceVim#custom#SPC('nmap', ['c', 'c'], '<Plug>NERDCommenterInvert', 'comment or uncomment lines', 0)
+call SpaceVim#custom#SPC('nnoremap', ['v'], ':Vista', 'VistaEnable', 1)
+call SpaceVim#custom#SPC('nnoremap', ['s', 'f'], 'Vista finder', 'search ctags simbols with Vista ', 1)
+call SpaceVim#custom#SPC('nnoremap', ['s', 'F'], 'LeaderfFunction!', 'search ctags simbols with Vista', 1)
+
+
+let g:spacevim_colorscheme = 'onedark'
+let g:spacevim_guifont='CascadiaCove\ Nerd\ Font:h12'
+
+" colorscheme SpaceVim
+
+
+""""""""""""""""""""""""Vista设置"""""""""""""""""""""""""""""""
+" https://github.com/liuchengxu/vista.vim#:~:text=In%20addition%20to%20being%20a%20tags%20viewer%2C%20vista.vim,understands%20the%20semantics%20instead%20of%20the%20regex%20only.
+noremap <LEADER>v :Vista<CR>
+let g:vista#renderer#enable_icon = 1
+let g:vista_disable_statusline = 1
+let g:vista_vimwiki_executive = 'markdown'
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+let g:vista_executive_for = {
+			\ 'vimwiki': 'markdown',
+			\ 'pandoc': 'markdown',
+			\ 'markdown': 'toc',
+			\ 'yaml': 'coc',
+			\ 'typescript': 'coc',
+			\ 'typescriptreact': 'coc',
+            \ 'cpp': 'vim_lsp',
+            \ 'php': 'vim_lsp',
+			\ }
+
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified', 'method' ] ]
+      \ },
+      \ 'component_function': {
+      \   'method': 'NearestMethodOrFunction'
+      \ },
+      \ }
+let g:vista_finder_alternative_executives = ['coc']
+" 优先选择lsp作为标签来源，其次ctags
+let g:vista_cpp_executive = 'vim_lsp'
+let g:vista_default_executive = 'ctags'
+" 启用悬浮窗预览
+let g:vista_echo_cursor_strategy ='floating_win'
+" 侧边栏宽度.
+let g:vista_sidebar_width = 30
+" 设置为0，以禁用光标移动时的回显.
+let g:vista_echo_cursor = 1
+" 当前游标上显示详细符号信息的时间延迟.
+let g:vista_cursor_delay = 400
+" 跳转到一个符号时，自动关闭vista窗口.
+let g:vista_close_on_jump = 0
+"打开vista窗口后移动到它.
+let g:vista_stay_on_open = 1
+" 跳转到标记后闪烁光标2次，间隔100ms.
+let g:vista_blink = [2, 100]
+" 展示样式
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+
+" " 系统寄存器粘贴复制键{{{
+" nmap "+gp
+" vmap "+gp
+" vmap "+y
+" " }}}系统寄存器粘贴复制键
+
+" " mouse {{{
+" set mouse+=a
+" set mousehide
+" " }}} mouse
+"
+
+
+
+""""""""""""""""""""""""""""""  majutsushi/tagbar配置 """"""""""""""""""""""""""""""""""""""
+
+" 设置 tagbar 使用的 ctags 的插件，必须要设置对
+
+let g:tagbar_ctags_bin='/usr/bin/ctags'
+" 设置 tagbar 的窗口宽度
+let g:tagbar_width=20
+" 设置 tagbar 的窗口显示的位置，为右边
+" let g:tagbar_right = 1
+let g:tagbar_left = 1
+" 打开文件自动 打开
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.py,*.cc,*.cxx call tagbar#autoopen()
+
+
+" 将开启tagbar的快捷键设置为　 tb
+nnoremap  tb :TagbarToggle<CR>
+map! tb <Esc> :TagbarToggle<CR>
+"开启自动预览(随着光标在标签上的移动，顶部会出现一个实时的预览窗口)
+let g:tagbar_autopreview = 0
+"关闭排序,即按标签本身在文件中的位置排序
+let g:tagbar_sort = 0
+
+
+""""""""""""""""""""""""""""""""""""""""""   Tag List  """"""""""""""""""""""""""""""""""""""""""""""
+
+"TagList插件依赖ctags插件
+" 安装ctags
+" sudo apt-get install ctags
+
+" 安装Taglist
+" 下载Taglist，地址是http://sourceforge.net/projects/vim-taglist/files/vim-taglist/
+
+" 解压taglist_45.zip，可以看到有两个目录doc和plugin，结构如下
+
+" cp   ~/下载/doc/taglist.txt  /usr/share/vim/vim72/doc/
+" cp   ~/下载/plugin/taglist.vim  /usr/share/vim/vim72/plugin/
+
+
+"设置ctags路径
+" let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+
+"启动vim后自动打开taglist窗口
+"打开文件时候不自动打开Taglist窗口
+let Tlist_Auto_Open = 0
+
+" tag按名字排序
+let Tlist_Sort_Type="name"
+
+"不同时显示多个文件的tag，仅显示一个
+let Tlist_Show_One_File = 1
+
+"taglist为最后一个窗口时，退出vim
+let Tlist_Exit_OnlyWindow = 1
+
+
+"  非当前文件，函数列表折叠隐藏
+let Tlist_File_Fold_Auto_Close=1    
+
+" 显示taglist菜单
+" let Tlist_Show_Menu=1
+
+" 鼠标单击跳转到tag定义, 要开启鼠标功能
+let Tlist_Use_SingleClick=1
+
+"taglist窗口显示在右侧，缺省为左侧
+let Tlist_Use_Right_Window = 1
+" let Tlist_Use_Right_Window = 0
+
+" 自动更新
+let Tlist_Auto_Update = 1
+
+"设置taglist窗口大小
+"let Tlist_WinHeight = 100
+let Tlist_WinWidth = 30
+
+"设置taglist打开关闭的快捷键F10，就是F10会显示代码中的函数，变量，类，宏等
+" map tl <Esc>:TlistToggle<Cr>
+
+"将 \t 表示为在命令行模式下输入命令：
+nnoremap  tl <Esc>:TlistToggle<Cr>
+
+
+
+
+""""""""""""""""""""""""""""" gelguy/wilder.nvim配置"""""""""""""""""""""""""""""""""""""""""
+call wilder#setup({'modes': [':', '/', '?']})
+
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#cmdline_pipeline(),
+      \     wilder#search_pipeline(),
+      \   ),
+      \ ])
+
+call wilder#set_option('renderer', wilder#wildmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ }))
+
+
+""""""""""""""""""""""""""""""""""""""" change-colorscheme 配置  """""""""""""""""""""""""""""""""""""""
+
+" map <F2>> :NextColorScheme<CR>
+map nc :NextColorScheme<CR>
+" imap <F12> <ESC> :NextColorScheme<CR>
+" imap <Leader>nc <ESC> :NextColorScheme<CR>
+
+" map <F11> :PreviousColorScheme<CR>
+map pc :PreviousColorScheme<CR>
+" imap <F11> <ESC> :PreviousColorScheme<CR>
+" imap <Leader>pc <ESC> :PreviousColorScheme<CR>
+
+
+
+
+"""""""""""""""""""""""""""""luochen1990/rainbow配置"""""""""""""""""""""""""""""""""""""""""
+
+" rainbow 对于不同的括号，渲染成不同颜色
+let g:rainbow_active = 1
+let g:rainbow_operators=2
+let g:rainbow_conf = {
+            \   'guifgs': ['magenta1', 'maroon1', 'red1', 'orange1'],
+            \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+            \   'operators': '_,\|+\|-_',
+            \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+            \   'separately': {
+            \       '*': {},
+            \       'lisp': {
+            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
+            \       },
+            \       'vim': {
+            \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
+            \       },
+            \       'tex': {
+            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
+            \       },
+            \       'html': {
+            \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+            \       },
+            \       'css': 0,
+            \       'stylus': 0,
+            \   }
+            \}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""rainbow_parenthsis配置""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+let g:rbpt_colorpairs = [
+            \ ['brown',       'RoyalBlue3'],
+            \ ['Darkblue',    'SeaGreen3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['brown',       'firebrick3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['Darkblue',    'firebrick3'],
+            \ ['darkgreen',   'RoyalBlue3'],
+            \ ['darkcyan',    'SeaGreen3'],
+            \ ['darkred',     'DarkOrchid3'],
+            \ ['red',         'firebrick3'],
+            \ ]
+
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+" au VimEnter * RainbowParenthesesToggle
+"RainbowParenthesesLoadRound 选项用于开启对 圆括号 () 的多彩色高亮匹配，该选项默认被开启；
+" au Syntax * RainbowParenthesesLoadRound
+"RainbowParenthesesLoadSquare 选项用于开启对 方括号 [] 的多彩色高亮匹配；
+" au Syntax * RainbowParenthesesLoadSquare
+"RainbowParenthesesLoadBraces 选项用于开启对 大括号 {} 的多彩色高亮匹配；
+" au Syntax * RainbowParenthesesLoadBraces
+"RainbowParenthesesLoadChevrons 选项用于开启对 尖括号 <> 的多彩色高亮匹配。
+"au Syntax * RainbowParenthesesLoadChevrons "
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""" mechatroner/rainbow_csv """"""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd BufNewFile,BufRead *.csv   set filetype=csv_semicolon
+autocmd BufNewFile,BufRead *.dat   set filetype=csv_pipe
+let g:rcsv_delimiters = ["\t", ",", "^", "~#~"]
+let g:disable_rainbow_csv_autodetect = 1
+
+let g:rcsv_colorpairs = [['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', 'magenta'], ['NONE', 'NONE'], ['darkred', 'darkred'], ['darkblue', 'darkblue'], ['darkgreen', 'darkgreen'], ['darkmagenta', 'darkmagenta'], ['darkcyan', 'darkcyan']]
+
+
+
+
+"""""""""""""""""""""""""""""""""""""" easymotion/vim-easymotion配置 """"""""""""""""""""""""""""""""""""""
+" \\w    # 向后查找单词(find word after),定位到词首
+" \\W    # 向后查找单词(find word before)
+" \\e    # 向后查找，定位到词尾(find word end after)
+" \\E    # 向后查找，位位到词尾(find word end before)
+" \\b    # 向前查找单字，定位到词尾(find word end after)
+" \\B    # 向前查找单字，位位到词尾(find word end before)
+" \\f    # 向后查找单字(find letter after)
+" \\F    # 向前查找单字(find letter before)
+" \\s    #快捷键<leader><leader>s(即\\s), 然后输入要搜索的字母, 这个跳转是双向的
+
+let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+
+" 行内跳转(hl)
+map <Leader><leader>h <Plug>()
+map <Leader><leader>l <Plug>(easymotion-lineforward)
+
+" 行级跳转(jk)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+" 重复上一次操作, 类似repeat插件, 很强大
+map <Leader><leader>. <Plug>(easymotion-repeat)
+
+" 使用 ss 启用
+nmap ss <Plug>(easymotion-s2)
+"注意：以上操作都是在本界面，也就是在当前所在屏幕的大小里面能显示的界面
 
 
 
@@ -1899,3 +2242,582 @@ hi Normal ctermfg=252 ctermbg=none
 
 
 
+""""""""""""""""""""Shougo/defx.nvim设置"""""""""""""""""""""""""""""""""''
+noremap <LEADER>df :Defx<CR>
+
+" 开关快捷键,【-search=`expand('%:p')`】表示打开defx树后，光标自动放在当前buffer上
+noremap <LEADER>df :Defx  -search=`expand('%:p')` -toggle <cr>
+nnoremap <silent> df :Defx  -search=`expand('%:p')` -toggle <cr>
+
+
+call defx#custom#option('_', {
+			\ 'resume': 1,
+			\ 'winwidth': 30,
+			\ 'split': 'vertical',
+			\ 'direction': 'topleft',
+			\ 'show_ignored_files': 0,
+			\ 'columns': 'mark:indent:git:icons:filename',
+			\ 'root_marker': '',
+			\ 'buffer_name': '',
+			\ 'toggle': 1,
+			\ })
+
+call defx#custom#column('git', {
+			\   'indicators': {
+			\     'Modified'  : '•',
+			\     'Staged'    : '✚',
+			\     'Untracked' : 'ᵁ',
+			\     'Renamed'   : '≫',
+			\     'Unmerged'  : '≠',
+			\     'Ignored'   : 'ⁱ',
+			\     'Deleted'   : '✖',
+			\     'Unknown'   : '⁇'
+			\   }
+			\ })
+
+call defx#custom#column('mark', { 'readonly_icon': '', 'selected_icon': '' })
+
+augroup user_plugin_defx
+	autocmd!
+	autocmd FileType defx call <SID>defx_mappings()
+	autocmd WinEnter * if &filetype == 'defx' && winnr('$') == 1 | bdel | endif
+	autocmd TabLeave * if &filetype == 'defx' | wincmd w | endif
+augroup END
+
+function! s:jump_dirty(dir) abort
+	let l:icons = get(g:, 'defx_git_indicators', {})
+	let l:icons_pattern = join(values(l:icons), '\|')
+
+	if ! empty(l:icons_pattern)
+		let l:direction = a:dir > 0 ? 'w' : 'bw'
+		return search(printf('\(%s\)', l:icons_pattern), l:direction)
+	endif
+endfunction
+
+autocmd FileType defx call s:defx_mappings()
+
+function! s:defx_mappings() abort
+  nnoremap <silent><buffer><expr> z     <SID>defx_toggle_tree()                    " 打开或者关闭文件夹，文件
+  nnoremap <silent><buffer><expr> .     defx#do_action('toggle_ignored_files')     " 显示隐藏文件
+  nnoremap <silent><buffer><expr> <C-r>  defx#do_action('redraw')
+endfunction
+" 上面的配置我们可以使用. 键来显示和隐藏忽略文件，l 键来打开关闭文件或者文件夹。其他的内容就需要你们自己配置了。
+
+function! s:defx_toggle_tree() abort
+	if defx#is_directory()
+		return defx#do_action('open_or_close_tree')
+	endif
+	return defx#do_action('multi', ['drop'])
+endfunction
+
+function! s:defx_mappings() abort
+	setlocal signcolumn=no expandtab
+	nnoremap <silent><buffer><expr> <CR>     <SID>defx_toggle_tree()                    " 打开或者关闭文件夹，文件
+	nnoremap <silent><buffer><expr> <C-h>     defx#do_action('toggle_ignored_files')     " 显示隐藏文件
+    nnoremap <silent><buffer><expr> dd       defx#do_action('remove_trash')
+    nnoremap <silent><buffer><expr> >        defx#do_action('resize',  defx#get_context().winwidth - 10)
+    nnoremap <silent><buffer><expr> <        defx#do_action('resize',  defx#get_context().winwidth + 10)
+    nnoremap <silent><buffer><expr> j        line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k        line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> h
+                    \ defx#is_opened_tree() ?
+                    \ defx#do_action('close_tree', defx#get_candidate().action__path) :
+                    \ defx#do_action('search',  fnamemodify(defx#get_candidate().action__path, ':h'))
+    nnoremap <silent><buffer><expr> l        defx#do_action('open_tree')
+    nnoremap <silent><buffer><expr> o        defx#do_action('open_directory')
+    nnoremap <silent><buffer><expr> r        defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> E        defx#do_action('open', 'vsplit')
+    nnoremap <silent><buffer><expr> P        defx#do_action('preview')
+	nnoremap <silent><buffer><expr> c   defx#do_action('copy')
+	nnoremap <silent><buffer><expr> m   defx#do_action('move')
+	nnoremap <silent><buffer><expr> p   defx#do_action('paste')
+	nnoremap <silent><buffer><expr> e   defx#do_action('open')
+	nnoremap <silent><buffer><expr> nd   defx#do_action('new_directory')
+	nnoremap <silent><buffer><expr> N   defx#do_action('new_file')
+	nnoremap <silent><buffer><expr> M   defx#do_action('new_multiple_files')
+	nnoremap <silent><buffer><expr> C   defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
+	nnoremap <silent><buffer><expr> S   defx#do_action('toggle_sort', 'time')
+	nnoremap <silent><buffer><expr> X   defx#do_action('remove')
+	nnoremap <silent><buffer><expr> R   defx#do_action('rename')
+
+	nnoremap <silent><buffer><expr> !   defx#do_action('execute_command')
+	nnoremap <silent><buffer><expr> x   defx#do_action('execute_system')
+	nnoremap <silent><buffer><expr> yy  defx#do_action('yank_path')
+	nnoremap <silent><buffer><expr> <C-h> defx#do_action('toggle_ignored_files')
+	nnoremap <silent><buffer><expr> ;   defx#do_action('repeat')
+	nnoremap <silent><buffer><expr> a   defx#do_action('cd', ['..'])
+	nnoremap <silent><buffer><expr> ~   defx#do_action('cd')
+	nnoremap <silent><buffer><expr> q   defx#do_action('quit')
+	nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+	nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> csa        defx#do_action('clear_select_all')
+	nnoremap <silent><buffer><expr> j   line('.') == line('$') ? 'gg' : 'j'
+	nnoremap <silent><buffer><expr> k   line('.') == 1 ? 'G' : 'k'
+	nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+	nnoremap <silent><buffer><expr> cd  defx#do_action('change_vim_cwd')
+	nnoremap <silent><buffer><expr> u   defx#do_action('cd', ['..'])
+	nnoremap <silent><buffer><expr> 2u  defx#do_action('cd', ['../..'])
+	nnoremap <silent><buffer><expr> 3u  defx#do_action('cd', ['../../..'])
+	nnoremap <silent><buffer><expr> 4u  defx#do_action('cd', ['../../../..'])
+endfunction
+
+let g:defx_icons_column_length = 2
+let g:defx_icons_mark_icon = ''
+let g:defx_icons_parent_icon = ""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"nerdtree-git-plugin 配置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:NERDTreeGitStatusShowIgnored =1
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+            \ "Modified"  : "✹",
+            \ "Staged"    : "✚",
+            \ "Untracked" : "✭",
+            \ "Renamed"   : "➜",
+            \ "Unmerged"  : "",
+            \ "Deleted"   : "✖",
+            \ "Dirty"     : "✗",
+            \ "Clean"     : "✔︎",
+            \ 'Ignored'   : '☒',
+            \ "Unknown"   : "?"
+            \ }
+
+let g:NERDSpaceDelims =1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCustomDelimiters = {
+            \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
+            \ 'less': { 'left': '/**', 'right': '*/' }
+            \ }
+
+
+
+"""""""""""""""""""""""""""""""Undotree插件"""""""""""""""""""""""""""""""""""""""""""
+
+let g:undotree_DiffAutoOpen = 0
+nnoremap L :UndotreeToggle<CR>
+let g:undotree_DiffAutoOpen = 1
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_ShortIndicators = 1
+let g:undotree_WindowLayout = 2
+let g:undotree_DiffpanelHeight = 8
+let g:undotree_SplitWidth = 24
+function g:Undotree_CustomMap()
+    nmap <buffer> u <plug>UndotreeNextState
+    nmap <buffer> e <plug>UndotreePreviousState
+    nmap <buffer> U 5<plug>UndotreeNextState
+    nmap <buffer> E 5<plug>UndotreePreviousState
+endfunc
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""' MattesGroeger/vim-bookmarks  配置"""""""""""""""""""""""""""""""""""""""""""""""""""
+highlight BookmarkSign ctermbg=NONE ctermfg=160
+highlight BookmarkLine ctermbg=194 ctermfg=NONE
+
+
+" let g:bookmark_no_default_key_mappings = 1
+highlight BookmarkSign ctermbg=red ctermfg=blue
+" highlight BookmarkAnnotationSign ctermbg=whatever ctermfg=whatever
+" highlight BookmarkLine ctermbg=whatever ctermfg=whatever
+" highlight BookmarkAnnotationLine ctermbg=whatever ctermfg=whatever
+
+" 书签可视化插件  MattesGroeger/vim-bookmarks  配置
+
+" 使用说明
+" 功能                                    快捷键          命令
+" 添加/删除书签(当前行)                     mm        :BookmarkToggle
+" 添加/编辑/删除当前行注释书签              mi        :BookmarkAnnotate <TEXT>
+" 跳转到当前 buffer 的下一个书签            mn        :BookmarkNext
+" 跳转到当前 buffer 的前一个书签            mp        :BookmarkPrev
+" 在 quickfix 窗口中列出所有书签(toggle)    ma        :BookmarkShowAll
+" 清除当前 buffer 内的所有书签              mc        :BookmarkClear
+" 清除所有 buffer 内的书签                  mx        :BookmarkClearAll
+" 保存书签到文件                                      :BookmarkSave <FILE_PATH>
+" 从文件加载书签                                      :BookmarkLoad <FILE_PATH>
+let g:bookmark_no_default_key_mappings = 1
+function! BookmarkMapKeys()
+    nmap mm :BookmarkToggle<CR>
+    nmap mi :BookmarkAnnotate<CR>
+    nmap mn :BookmarkNext<CR>
+    nmap mp :BookmarkPrev<CR>
+    nmap ma :BookmarkShowAll<CR>
+    nmap mc :BookmarkClear<CR>
+    nmap mx :BookmarkClearAll<CR>
+    nmap mkk :BookmarkMoveUp
+    nmap mjj :BookmarkMoveDown
+endfunction
+function! BookmarkUnmapKeys()
+    unmap mm
+    unmap mi
+    unmap mn
+    unmap mp
+    unmap ma
+    unmap mc
+    unmap mx
+    unmap mkk
+    unmap mjj
+endfunction
+autocmd BufEnter * :call BookmarkMapKeys()
+autocmd BufEnter NERD_tree_* :call BookmarkUnmapKeys()
+" 配置
+highlight BookmarkSign ctermbg=NONE ctermfg=160
+highlight BookmarkLine ctermbg=194 ctermfg=NONE
+let g:bookmark_sign = '♥'                     " 书签符号设置（默认⚑）
+"let g:bookmark_annotation_sign = '##'          " 注释(说明)书签符号(默认☰)
+"let g:bookmark_highlight_lines = 1             " 默认值为0(否)，是否高亮显示书签行
+"let g:bookmark_no_default_key_mappings = 1     " 默认值为0(否)，是否使用默认的快捷键
+let g:bookmark_center = 1                      " 默认值为0(否)，是否跳转后的书签行居中
+let g:bookmark_show_warning = 0                " 默认值为1(是)，删除所有书签时，是否显示警告信息
+let g:bookmark_highlight_lines = 1             " 默认值为0(否)，是否高亮书签行
+let g:bookmark_auto_close = 1                  " 默认值为0(否)，在 quickfix 窗口选中书签后，是否自动关闭 quickfix 窗口
+let g:bookmark_save_per_working_dir = 1        " 默认值为0(否)，是否针对工作目录保存书签
+let g:bookmark_auto_save = 0                   " 默认值为1(是)，是否自动保存书签
+
+
+
+
+
+
+
+
+
+""""""""""""""""""""""vim-startify""""""""""""""""""""""""""""""""""
+"设置书签
+let g:startify_bookmarks            = [
+            \ '~/Project/test.cpp',
+            \]
+"起始页显示的列表长度
+let g:startify_files_number = 20
+"自动加载session
+let g:startify_session_autoload = 1
+"过滤列表，支持正则表达式
+let g:startify_skiplist = [
+       \ '^/tmp',
+       \ ]
+"自定义Header和Footer
+let g:startify_custom_header = [
+            \ '+------------------------------+',
+            \ '|                              |',
+            \ '|    Still waters run deep!    |',
+            \ '|                              |',
+            \ '+----------------+-------------+',
+            \]
+let g:startify_custom_footer = [
+            \ '+------------------------------+',
+            \ '|     Keep an open mind!       |',
+            \ '+----------------+-------------+',
+            \]
+
+
+
+""""""""""""""""""""""""""""""""""""""开始配置scrooloose/nerdtree""""""""""""""""""""""""""""
+" 启动vim时 自动打开NERDTree
+" autocmd vimenter * NERDTree
+
+let g:NERDTreeChDirMode = 2  "Change current folder as root
+"当NERDTree为剩下的唯一窗口时自动关闭
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) |cd %:p:h |endif
+
+"打开vim时如果没有文件自动打开NERDTree
+autocmd vimenter * if !argc()|NERDTree|endif
+
+" 当vim打开一个目录时，nerdtree自动使用
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
+nmap fl :NERDTreeToggle<CR>
+
+" ctrl + d 打开目录
+" map <C-d> :NERDTreeToggle<CR>
+nmap nt :NERDTreeToggle<CR>
+
+" 设置NERDTree子窗口位置
+let NERDTreeWinPos="left"
+
+" 开启Nerdtree时自动显示Bookmarks
+let NERDTreeShowBookmarks=1
+
+"光标自动显示在编辑区
+autocmd VimEnter * wincmd w
+
+" 设置宽度
+let NERDTreeWinSize=25
+
+" 是否显示隐藏文件
+let NERDTreeShowHidden=1
+
+let g:NERDTreeHidden=1     " Don't show hidden files
+
+" 删除文件时自动删除文件对应 buffer
+let NERDTreeAutoDeleteBuffer=1
+
+"是否打开目录树
+let g:nerdtree_tabs_open_on_console_startup=0
+
+let NERDTreeQuitOnOpen=1   " Close NERDtree when files was opened
+let NERDTreeMinimalUI=1    " Start NERDTree in minimal UI mode (No help lines)
+let NERDTreeDirArrows=1    " Display arrows instead of ascii art in NERDTree
+let NERDTreeChDirMode=2    " Change current working directory based on root directory in NERDTree
+
+" 显示目录行号
+let NERDTreeShowLineNumbers=1
+"设置树的显示图标
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+
+let NERDTreeAutoCenter=1
+let NETDTreeIgnore=['\~$','\.pyc$','\.swp$'] "隐藏.pyc等文件
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""" junegunn/fzf.vim配置""""""""""""""""""""""""""""""""""""""""""""""
+
+" Ctrl + , 查看当前 Buffer，两次 Ctrl + e 快速切换上次打开的 Buffer
+nmap <C-,> :Buffers<CR>
+let g:fzf_action = { 'ctrl-e': 'edit' }
+
+"<Leader>f在当前目录搜索文件
+" Ctrl + f 查看文件列表
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent>         ff :Files<CR>
+
+
+"<Leader>b切换Buffer中的文件
+nnoremap <silent> <Leader>fb :Buffers<CR>
+
+"<Leader>p在当前所有加载的Buffer中搜索包含目标词的所有行，:BLines只在当前Buffer中搜索
+nnoremap <silent> <Leader>fl :Lines<CR>
+nnoremap <silent>         fl :Lines<CR>
+
+"<Leader>h在Vim打开的历史文件中搜索，相当于是在MRU中搜索，:History：命令历史查找
+nnoremap <silent> <Leader>fh :History<CR>
+
+
+
+
+" This is the default extra key bindings
+let g:fzf_action = {
+            \ 'ctrl-t': 'tab split',
+            \ 'ctrl-x': 'split',
+            \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+            \ { 'fg':      ['fg', 'Normal'],
+            \ 'bg':      ['bg', 'Normal'],
+            \ 'hl':      ['fg', 'Comment'],
+            \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \ 'hl+':     ['fg', 'Statement'],
+            \ 'info':    ['fg', 'PreProc'],
+            \ 'border':  ['fg', 'Ignore'],
+            \ 'prompt':  ['fg', 'Conditional'],
+            \ 'pointer': ['fg', 'Exception'],
+            \ 'marker':  ['fg', 'Keyword'],
+            \ 'spinner': ['fg', 'Label'],
+            \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+
+" [Buffers] 如果可能跳到已存在窗口
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] 自定义被'git log'使用的选项
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] 定义用来产生tag的命令
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+
+" Command for git grep
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* GGrep
+            \ call fzf#vim#grep(
+            \   'git grep --line-number '.shellescape(<q-args>), 0,
+            \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
+"调用Rg进行搜索，包含隐藏文件
+"这样输入:Rg <keyword>会调用ripgrep来递归搜索当前目录
+command! -bang -nargs=* Rg
+            \ call fzf#vim#grep(
+            \   'rg --column --line-number --no-heading --color=always --smart-case --hidden '.shellescape(<q-args>), 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \   <bang>0)
+" Override Colors command. You can safely do this in your .vimrc as fzf.vim
+" will not override existing commands.
+command! -bang Colors
+            \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+
+command! -bang -nargs=* Ag
+            \ call fzf#vim#ag(<q-args>,
+            \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+            \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+            \                 <bang>0)
+nnoremap <silent> <Leader>A :Ag<CR>
+
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""" LeaderF 设置  """""""""""""""""""""""""""""""""""""""""""""""
+
+" 安装ctags
+" sudo apt-get install ctags
+
+" Ctrl + p 打开文件搜索
+let g:Lf_ShortcutF = '<C-s>'
+
+"\p 打开函数列表
+noremap lf :LeaderfFunction<cr>
+"函数搜索（仅当前文件里），依赖ctags插件
+nnoremap <silent> lf :Leaderf function<CR>
+nnoremap <silent> lf :LeaderfFunction<CR>
+"文件搜索
+nnoremap <silent> <Leader>lf :Leaderf file<CR>
+nnoremap <silent> <Leader>lf :LeaderfFile<CR>
+"历史打开过的文件
+nnoremap <silent> <Leader>lh :Leaderf mru<CR>
+nnoremap <silent> <Leader>lh :LeaderfMru<CR>
+"Buffer
+nnoremap <silent> <Leader>lb :Leaderf buffer<CR>
+nnoremap <silent> <Leader>lb :LeaderfBuffer<CR>
+
+" 搜索当前文件中有的某个单词
+nnoremap <silent> <Leader>lw :Leaderf line<CR>
+
+" 更换颜色
+nnoremap <silent> <Leader>lc :Leaderf colorscheme<CR>
+
+" 是召回上一个命令的最后搜索结果
+nnoremap <silent> <Leader>lr Leaderf --recall<CR>
+"模糊搜索，很强大的功能，迅速秒搜
+nnoremap <silent> <Leader>rg :Leaderf rg<CR>
+
+" <C-C>, <ESC> : 退出 LeaderF.
+" <C-R> : 在模糊匹配和正则式匹配之间切换
+" <C-F> : 在全路径搜索和名字搜索之间切换
+" <Tab> : 在检索模式和选择模式之间切换
+" <C-J>, <C-K> : 在结果列表里选择
+" <C-X> : 在水平窗口打开
+" <C-]> : 在垂直窗口打开
+" <C-T> : 在新标签打开
+" <C-P> : 预览结果
+
+" 使用 popup window /floating window 预览
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""" liuchengxu/vim-clap 配置""""""""""""""""""""""""""""""""""""""""""""""
+let g:clap_layout = { 'relative': 'editor' }
+" let g:clap_layout = { 'width': '95%', 'col': '5%' }
+let g:clap_theme = 'material_design_dark'
+let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }
+
+" vim-clap
+nnoremap <silent><nowait> <space>op  :<C-u>Clap<CR>
+nnoremap <silent><nowait> <space>ol  :<C-u>Clap blines<CR>
+nnoremap <silent><nowait> <space>oL  :<C-u>Clap lines<CR>
+nnoremap <silent><nowait> <space>ob  :<C-u>Clap buffers<CR>
+nnoremap <silent><nowait> <space>oc  :<C-u>Clap command<CR>
+nnoremap <silent><nowait> <space>oh  :<C-u>Clap history<CR>
+nnoremap <silent><nowait> <space>of  :<C-u>Clap files ++finder=rg --ignore --hidden --files<CR>
+nnoremap <silent><nowait> <space>oq  :<C-u>Clap quickfix<CR>
+nnoremap <silent><nowait> <space>oj  :<C-u>Clap jumps<CR>
+nnoremap <silent><nowait> <space>om  :<C-u>Clap marks<CR>
+nnoremap <silent><nowait> <space>ow  :<C-u>Clap windows<CR>
+nnoremap <silent><nowait> <space>ot  :<C-u>Clap tags<CR>
+nnoremap <silent><nowait> <space>os  :<C-u>Clap colors<CR>
+nnoremap <silent><nowait> <space>og  :<C-u>Clap grep2<CR>
+
+let g:which_key_map = {
+			\ 'name' : '+clap',
+			\ 'p' : 'clap',
+			\ 'b' : 'buffers',
+			\ 'c' : 'command',
+			\ 'h' : 'file history',
+			\ 'f' : 'search file',
+			\ 'q' : 'quickfix list',
+			\ 'j' : 'jumps',
+			\ 'm' : 'marks',
+			\ 'w' : 'windows',
+			\ 't' : 'tags',
+			\ 's' : 'colors',
+			\ 'g' : 'find word',
+			\ }
+let g:clap_provider_quick_open = {
+      \ 'source': ['~/.vimrc','~/.config/nvim/init.vim', '~/.spacevim', '~/.bashrc', '~/.tmux.conf'],
+      \ 'sink': 'e',
+      \ 'description': 'Quick open some dotfiles',
+      \ }
+
+
+
+
+
+""""""""""""""""""""""""""nvim-telescope/telescope.nvim配置"""""""""""""""""""""""""""""""""
+" Find files using Telescope command-line sugar.
+nnoremap [tf <cmd>Telescope find_files<cr>
+nnoremap [tg <cmd>Telescope live_grep<cr>
+nnoremap [tb <cmd>Telescope buffers<cr>
+nnoremap [th <cmd>Telescope help_tags<cr>
+
+" Using lua functions
+nnoremap ]tf <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap ]tg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap ]tb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap ]th <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
+highlight TelescopeSelection      guifg=#D79921 gui=bold  ctermfg=11 " selected item
+highlight TelescopeSelectionCaret guifg=#CC241D  ctermfg=9  " selection caret
+highlight TelescopeMultiSelection guifg=#928374  ctermfg=241  " multisections
+highlight TelescopeNormal         guibg=#000000   ctermfg=0 " floating windows created by telescope.
+
+" Border highlight groups.
+highlight TelescopeBorder         guifg=#ffffff      ctermfg=15
+highlight TelescopePromptBorder   guifg=#ffffff      ctermfg=15
+highlight TelescopeResultsBorder  guifg=#ffffff      ctermfg=15
+highlight TelescopePreviewBorder  guifg=#ffffff      ctermfg=15
+
+" Used for highlighting characters that you match.
+highlight TelescopeMatching       guifg=blue        ctermfg=12
+
+" Used for the prompt prefix
+highlight TelescopePromptPrefix   guifg=red        ctermfg=9

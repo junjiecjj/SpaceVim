@@ -59,7 +59,7 @@
     enable_tabline_filetype_icon = true
     # 是否在状态栏上显示当前模式，默认情况下，不显示 Normal/Insert 等
     # 字样，只以颜色区分当前模式
-    enable_statusline_display_mode = false
+    enable_statusline_display_mode = true
 #   statusline_left_sections = [
 #   'winnr',
 #      'filename',
@@ -97,15 +97,32 @@
     # Vim兼容：智能关闭窗口q改为录制宏
     windows_smartclose = ''
 
+[options]
+    guifont = "CaskaydiaCove Nerd Font Mono:style=SemiLight:h11"
 
-
+[options]
+    custom_color_palette = [
+        ["#282828", "#a89984", 246, 235],
+        ["#a89984", "#504945", 239, 246],
+        ["#a89984", "#3c3836", 237, 246],
+        ["#665c54", 241],
+        ["#282828", "#83a598", 235, 109],
+        ["#282828", "#fe8019", 235, 208],
+        ["#282828", "#8ec07c", 235, 108],
+        ["#282828", "#689d6a", 235, 72],
+        ["#282828", "#8f3f71", 235, 132],
+    ]
 
 [options]
     # 文件树插件可选值包括：
     # - nerdtree （默认）
     # - vimfiler: 需要编译 vimproc.vim, 在目录 bundle/vimproc.vim 下
     # - defx: 需要 +py3 支持
+# 默认的快捷键是F3, SpaceVim 也提供了另外一组快捷键 SPC f t 和 SPC f T 来打开文件树
     filemanager = "defx"
+    filetree_direction = "left"
+
+# 默认情况下文件树是打开的，如果需要设置文件树默认关闭，需要修改 enable_vimfiler_welcome 选项。
 [options]
     enable_vimfiler_welcome = false
 
@@ -127,7 +144,9 @@
 [options]
     colorscheme = "NeoSolarized"
     colorscheme_bg = "dark"
-
+# 注意: 为了在 Vim 中使用谷歌 suggestions，需要在 ~/.SpaceVim.d/init.toml 的 [options] 片段中加入如下配置：
+[options]
+    enable_googlesuggest = true
 
 [options]
     # options for layers checkers
@@ -139,20 +158,11 @@
     # bootstrap configuration
     bootstrap_before = "myspacevim#before"
     bootstrap_after = "myspacevim#after"
+
+# 在自动检测项目根目录时，有时候我们需要忽略掉一些目录，可以表达式前面添加 !， 比如，忽略掉 node_packages/ 文件夹：
 [options]
-    custom_color_palette = [
-        ["#282828", "#a89984", 246, 235],
-        ["#a89984", "#504945", 239, 246],
-        ["#a89984", "#3c3836", 237, 246],
-        ["#665c54", 241],
-        ["#282828", "#83a598", 235, 109],
-        ["#282828", "#fe8019", 235, 208],
-        ["#282828", "#8ec07c", 235, 108],
-        ["#282828", "#689d6a", 235, 72],
-        ["#282828", "#8f3f71", 235, 132],
-    ]
-
-
+    project_rooter_patterns = ['.git/', '_darcs/', '.hg/', '.bzr/', '.svn/', '!node_packages/']
+    project_rooter_outermost = false
 
 # ----------------- SpaceVim 添加的各种 layers ---------------------------------
 # 强化`/`搜索显示
@@ -170,6 +180,17 @@
 [[layers]]
     name = "checkers"
     enable = false
+
+# 启用 autocomplete 模块，启用模块时，可以列出一些模块选项，并赋值，
+# 关于模块的选项，请阅读各个模块的文档
+[[layers]]
+    name = "autocomplete"
+    auto-completion-return-key-behavior = "complete"
+    auto-completion-tab-key-behavior = "cycle"
+
+[[layers]]
+  name = "ui"
+  enable_scrollbar = true
 
 # 版本控制
 [[layers]]
@@ -209,7 +230,7 @@
     name = "format"
 
 #Python IDE配置
-[[layers]] 
+[[layers]]
     name = "lang#python"
 
 #C/C++ IDE配置#
@@ -266,6 +287,8 @@ merged = 0
 [[custom_plugins]]
 name = 'neoclide/coc.nvim'
 merge = 0
+
+
 
 [[custom_plugins]]
 name = 'antoinemadec/coc-fzf'
@@ -342,7 +365,7 @@ name = 'simeji/winresizer'
     [[custom_plugins]]
     name = 'kana/vim-textobj-syntax'
      merged = 0
-   
+
 [[custom_plugins]]
     name = 'kana/vim-textobj-function'
     merged = 0
@@ -477,7 +500,7 @@ name = 'simeji/winresizer'
 
 # 书签管理插件
 [[custom_plugins]]
-name = "MattesGroeger/vim-bookmarks" 
+name = "MattesGroeger/vim-bookmarks"
 merged = 0
 
 
@@ -485,7 +508,7 @@ merged = 0
 
 # markdown格式高亮插件
 [[custom_plugins]]
-name = "suan/vim-instant-markdown" 
+name = "suan/vim-instant-markdown"
 merged = 0
 
 # 快捷键菜单插件
@@ -494,7 +517,7 @@ name = "skywind3000/quickmenu.vim"
 merged = 0
 
 
-# git插件 窗口边缘标识git变化 
+# git插件 窗口边缘标识git变化
 [[custom_plugins]]
 name = "airblade/vim-gitgutter"
 merged = 0
@@ -512,13 +535,13 @@ merged = 0
 
 # (类名、变量、函数)标签列表插件
 [[custom_plugins]]
-name = "vim-scripts/taglist.vim" 
+name = "vim-scripts/taglist.vim"
 merged = 0
 
 
 # 书签管理插件
 [[custom_plugins]]
-name = "MattesGroeger/vim-bookmarks" 
+name = "MattesGroeger/vim-bookmarks"
 merged = 0
 
 
@@ -539,20 +562,20 @@ merged = 0
 
 # markdown格式高亮插件
 [[custom_plugins]]
-name = "suan/vim-instant-markdown" 
+name = "suan/vim-instant-markdown"
 merged = 0
 
 # 代码注释插件
 # [[custom_plugins]]
 # name = "preservim/nerdcommenter"
 # merged = 0
-# SpaceVim 有内置代码注释 <space>+c+l 、<sapce>+c+u <space>+c+L 
+# SpaceVim 有内置代码注释 <space>+c+l 、<sapce>+c+u <space>+c+L
 
 # vim8.1的终端辅助插件
 [[custom_plugins]]
 name = "skywind3000/vim-terminal-help"
 merged = 0
-	    
+
 
 [[custom_plugins]]
 name = "nlknguyen/papercolor-theme"

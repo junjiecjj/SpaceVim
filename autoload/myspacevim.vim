@@ -63,7 +63,109 @@ function! myspacevim#before() abort
     set dictionary+=/usr/share/dict/engspchk-dict
     set completeopt+=noinsert
 
-    let mapleader = '\'
+   
+
+    ".Md文件也能被识别为markdown
+    autocmd BufNewFile,BufRead *.Md set filetype=markdown
+    "ejs识别为html
+    autocmd BufNewFile,BufRead *.ejs set filetype=html
+    "Scons相关脚本识别为python
+    autocmd BufNewFile,BufRead SConstruct set filetype=python
+    autocmd BufNewFile,BufRead SConscript set filetype=python
+
+    " 焦点消失的时候自动保存
+    au FocusLost * :wa
+    au FocusGained,BufEnter * :checktime
+    " 当文件被其他编辑器修改时，自动加载
+    set autowrite
+    set autoread
+    " 重新映射 leader 键
+    " let g:mapleader = ','
+
+    " 让 leaderf 可以搜索 git 的 submodule，否则 submodule 的文件会被自动忽略
+    let g:Lf_RecurseSubmodules = 1
+    let g:table_mode_corner='|'
+
+    " 调节 window 大小
+    let g:winresizer_start_key = '<space>wa'
+    " If you cancel and quit window resize mode by `q` (keycode 113)
+    let g:winresizer_keycode_cancel = 113
+
+    " 让file tree 显示文件图标，需要 terminal 安装 nerd font
+    let g:spacevim_enable_vimfiler_filetypeicon = 1
+    " 让 filetree 显示 git 的状态
+    " let g:spacevim_enable_vimfiler_gitstatus = 1
+
+    " 默认 markdown preview 在切换到其他的 buffer 或者 vim
+    " 失去焦点的时候会自动关闭 preview
+    let g:mkdp_auto_close = 0
+    " 书签选中之后自动关闭 quickfix window
+    let g:bookmark_auto_close = 1
+
+    " vim-lsp-cxx-highlight 和这个选项存在冲突
+    " let g:rainbow_active = 1
+
+
+    " 让光标自动进入到popup window 中间
+    let g:git_messenger_always_into_popup = v:true
+    " 设置映射规则，和 spacevim 保持一致
+    " lazygit，利用 floaterm，在vim 中间运行 lazygit。
+    "  GitMessenger可以显示所在行的 git blame 信息。
+    call SpaceVim#custom#SPC('nnoremap', ['g', 'm'], 'GitMessenger', 'show commit message in popup window', 1)
+    call SpaceVim#custom#SPC('nnoremap', ['g', 'l'], 'FloatermNew lazygit', 'open lazygit in floaterm', 1)
+
+    " 和 sourcetrail 配合使用
+    "call SpaceVim#custom#SPC('nnoremap', ['a', 'a'], 'SourcetrailStartServer', 'start sourcetrail server', 1)
+    "call SpaceVim#custom#SPC('nnoremap', ['a', 'b'], 'SourcetrailActivateToken', 'sync sourcetrail with neovim', 1)
+    "call SpaceVim#custom#SPC('nnoremap', ['a', 'f'], 'SourcetrailRefresh', 'sourcetrail server', 1)
+
+    " 设置默认的pdf阅览工具
+    let g:vimtex_view_method = 'zathura'
+    let g:vimtex_syntax_conceal_default = 0
+    " 关闭所有隐藏设置
+        let g:tex_conceal = ""
+
+    " 实现一键运行各种文件，适合非交互式的，少量的代码，比如 leetcode {{{
+    func! QuickRun()
+        exec "w"
+        let ext = expand("%:e")
+        let file = expand("%")
+        if ext ==# "sh"
+            exec "!bash %"
+        elseif ext ==# "cpp"
+            exec "!clang++ % -Wall -g -std=c++17 -o %<.out && ./%<.out"
+        elseif ext ==# "c"
+            exec "!clang % -Wall -g -std=c11 -o %<.out && ./%<.out"
+        elseif ext ==# "java"
+            let classPath = expand('%:h')
+            let className = expand('%:p:t:r')
+            " echo classPath
+            " echo className
+            exec "!javac %"
+            exec "!java -classpath " . classPath . " " . className
+        elseif ext ==# "go"
+            exec "!go run %"
+        elseif ext ==# "js"
+            exec "!node %"
+        elseif ext ==# "bin"
+            exec "!readelf -h %"
+        elseif ext ==# "py"
+            exec "!python3 %"
+        elseif ext ==# "vim"
+            exec "so %"
+        elseif ext ==# "html"
+            exec "!microsoft-edge %"
+        elseif ext ==# "rs"
+            call CargoRun()
+        else
+            echo "Check file type !"
+        endif
+        echo 'done'
+    endf
+
+    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+    let g:mapleader = '\'
     "不适用vi的键盘模式，使用vim自己的
     set nocompatible                             " required
     filetype on                                  " required开启探测文件类型,on off
@@ -1039,6 +1141,8 @@ function! myspacevim#before() abort
 
     " 解决写入只读文件
     nnoremap tee :w !sudo tee %<cr>
+    "超级用户权限编辑，出现权限不够无法保存时命令模式输入sw即可
+    cnoremap sw w !sudo tee >/dev/null %
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
     " ctrl-f 下翻一页,f = forward
@@ -1747,108 +1851,222 @@ function! myspacevim#before() abort
             call append(a:lineno, line)
         endif
     endfunc
+
 """"""""""""""""""""""""""""""""""""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
 
+    " """"""""""""""""""""""""""""""""""""""""""""""""""""""""自定义"配色方案"""""""""""""""""""""""""""""""""""'""'""
 
-    ".Md文件也能被识别为markdown
-    autocmd BufNewFile,BufRead *.Md set filetype=markdown
-    "ejs识别为html
-    autocmd BufNewFile,BufRead *.ejs set filetype=html
-    "Scons相关脚本识别为python
-    autocmd BufNewFile,BufRead SConstruct set filetype=python
-    autocmd BufNewFile,BufRead SConscript set filetype=python
-
-    " 焦点消失的时候自动保存
-    au FocusLost * :wa
-    au FocusGained,BufEnter * :checktime
-    " 当文件被其他编辑器修改时，自动加载
-    set autowrite
-    set autoread
-    " 重新映射 leader 键
-    " let g:mapleader = ','
-
-    " 让 leaderf 可以搜索 git 的 submodule，否则 submodule 的文件会被自动忽略
-    let g:Lf_RecurseSubmodules = 1
-    let g:table_mode_corner='|'
-
-    " 调节 window 大小
-    let g:winresizer_start_key = '<space>wa'
-    " If you cancel and quit window resize mode by `q` (keycode 113)
-    let g:winresizer_keycode_cancel = 113
-
-    " 让file tree 显示文件图标，需要 terminal 安装 nerd font
-    let g:spacevim_enable_vimfiler_filetypeicon = 1
-    " 让 filetree 显示 git 的状态
-    " let g:spacevim_enable_vimfiler_gitstatus = 1
-
-    " 默认 markdown preview 在切换到其他的 buffer 或者 vim
-    " 失去焦点的时候会自动关闭 preview
-    let g:mkdp_auto_close = 0
-    " 书签选中之后自动关闭 quickfix window
-    let g:bookmark_auto_close = 1
-
-    " vim-lsp-cxx-highlight 和这个选项存在冲突
-    " let g:rainbow_active = 1
+    " "/usr/share/vim/vim81/colors/ 目录中包含了大多数文件类型的语法高亮插件。
+    " hi clear
 
 
-    " 让光标自动进入到popup window 中间
-    let g:git_messenger_always_into_popup = v:true
-    " 设置映射规则，和 spacevim 保持一致
-    call SpaceVim#custom#SPC('nnoremap', ['g', 'm'], 'GitMessenger', 'show commit message in popup window', 1)
-    call SpaceVim#custom#SPC('nnoremap', ['g', 'l'], 'FloatermNew lazygit', 'open lazygit in floaterm', 1)
+    if strftime('%H') >= 7 && strftime('%H') < 23
+        set background=light
+        let ayucolor="light"  " for light version of theme
+        let themes = [
+            \ 'cosmic_latte', 'carbonized-light', 'ayu', 'c16gui', 'cake16', 'carrot', 'cleanphp',
+            \ 'colorful',  'flattened_light', 'github', 'PaperColor', 'gobo', 'gruvbox', 'habiLight',
+            \ 'navajo',  'fine_blue', 'nightshade_print_modified', 'nightshade_print',
+            \ 'pencil', 'earth', 'tcsoft',  'phpx', 'professional', 'rainbow_autumn', 'NeoSolarized',
+            \ 'seagull',  'snow', 'solarized8', 'solarized8_light_high', 'solarized8_high', 'stellarized',
+            \ 'thegoodluck', 'winter', 'violet', 'space_vim_theme', 'Atelier_LakesideLight', 'Atelier_SeasideLight',
+            \ 'kemonofriends', 'one', 'onehalflight', 'lucario', 'gruvbox8_soft', 'ayumi',
+            \ 'rakr-light', 'rakr', 'lightning', 'fruchtig', 'tatami', 'snowtrek', 'donbass', 'blandon',
+            \ 'vadelma', 'greent', 'fruit', 'nortia-nvim',
+            \ ]
+        " autocmd vimenter * ++nested colorscheme PaperColor
+        hi CursorColumn      ctermbg=250
+        hi CursorColumn      guibg= #bcbcbc
+    else
+        set background=dark
+        let ayucolor="mirage"  " for light version of theme
+        let themes = [
+            \ 'solarized8_dark_high' , 'github','NeoSolarized',
+            \ 'flattened_dark' ,  'lilydjwg_dark_modified', 'molokai','umber_green','petrel','detorte',
+            \ 'solarized8_flat', 'solarized8_low', 'solarized8_higt','solarized8' ,'lilydjwg_dark',
+            \ 'PaperColor', 'gruvbox8_soft','gruvbox8_hard','violet','lucario','palenight','rigel',
+            \ 'shades_of_purple','cobalt','cobaltish','cosmic-barf','tokyonight','true','purpura',
+            \ ]
+        " autocmd vimenter * ++nested colorscheme lilydjwg_dark_modified
+        hi CursorColumn      ctermbg=237
+        hi CursorColumn      guibg= #3a3a3a
+    endif
 
-    " 和 sourcetrail 配合使用
-    "call SpaceVim#custom#SPC('nnoremap', ['a', 'a'], 'SourcetrailStartServer', 'start sourcetrail server', 1)
-    "call SpaceVim#custom#SPC('nnoremap', ['a', 'b'], 'SourcetrailActivateToken', 'sync sourcetrail with neovim', 1)
-    "call SpaceVim#custom#SPC('nnoremap', ['a', 'f'], 'SourcetrailRefresh', 'sourcetrail server', 1)
+    " exe 'autocmd vimenter * ++nested colorscheme '.themes[localtime() % len(themes)]
+    " set background=dark
+    " colorscheme  solarized8_flat
+    " exe 'colorscheme '.themes[localtime() % len(themes)]
+    " autocmd vimenter * ++nested colorscheme solarized8_higt
 
-    " 设置默认的pdf阅览工具
-    let g:vimtex_view_method = 'zathura'
-    let g:vimtex_syntax_conceal_default = 0
-    " 关闭所有隐藏设置
-        let g:tex_conceal = ""
 
-    " 实现一键运行各种文件，适合非交互式的，少量的代码，比如 leetcode {{{
-    func! QuickRun()
-        exec "w"
-        let ext = expand("%:e")
-        let file = expand("%")
-        if ext ==# "sh"
-            exec "!bash %"
-        elseif ext ==# "cpp"
-            exec "!clang++ % -Wall -g -std=c++17 -o %<.out && ./%<.out"
-        elseif ext ==# "c"
-            exec "!clang % -Wall -g -std=c11 -o %<.out && ./%<.out"
-        elseif ext ==# "java"
-            let classPath = expand('%:h')
-            let className = expand('%:p:t:r')
-            " echo classPath
-            " echo className
-            exec "!javac %"
-            exec "!java -classpath " . classPath . " " . className
-        elseif ext ==# "go"
-            exec "!go run %"
-        elseif ext ==# "js"
-            exec "!node %"
-        elseif ext ==# "bin"
-            exec "!readelf -h %"
-        elseif ext ==# "py"
-            exec "!python3 %"
-        elseif ext ==# "vim"
-            exec "so %"
-        elseif ext ==# "html"
-            exec "!microsoft-edge %"
-        elseif ext ==# "rs"
-            call CargoRun()
-        else
-            echo "Check file type !"
-        endif
-        echo 'done'
-    endf
+    " 黑色：carbonized_dark, SolarizedDark_modified ,NeoSolarized, colorful256, drakblack, earth, fine_blue, flattened_dark , github, lilydjwg_dark_modified, molokai, solarized8 , solarized8_flat, solarized8_low, solarized8_higt,umber_green,
+
+    " 白色：cosmic_latte，carbonized_light, ayu,NeoSolarized, blacklight, bmichaelsen, c16gui, cake16, carrot, cleanphp, colorful,  flattened_light,github,gabo,greygull, gruvbox, habLight, navajo,  nicotine,nightshade_print_modified,nightshade_print, pencil, petrel, phpx, , , ,professional,rainbow_autumn,relaxedgreen,redstring,seagull,sf,snow,solarized8 , solarized8_flat, solarized8_low, solarized8_higt,stellarized, thegoodluck,winter,zellner,
+
+    " autocmd FileType  c,cpp            colorscheme   kemonofriends
+    " autocmd FileType  sh               colorscheme   true
+    " autocmd FileType  python           colorscheme   purpura
+    " autocmd FileType  vim              colorscheme   donbass
+    " autocmd FileType  text             colorscheme   seagull
+    " autocmd FileType  xterm            colorscheme   ayumi
+    " autocmd FileType  markdown         colorscheme   donbass
+    " autocmd FileType  zsh              colorscheme   fruchtig
+
+    nnoremap c1 :set background=dark<CR>:colorscheme lilydjwg_dark<CR> :AirlineTheme base16_colors<CR>
+    nnoremap c2 :set background=dark<CR>:colorscheme lilydjwg_dark_modified<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c3 :set background=dark<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c4 :set background=dark<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c5 :set background=dark<CR>:colorscheme flattened_dark<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c6 :set background=dark<CR>:colorscheme true<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c7 :set background=dark<CR>:colorscheme purpura<CR>:AirlineTheme base16_colors<CR>
+
+    nnoremap c11 :set background=light<CR>:colorscheme colorful<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c12 :set background=light<CR>:colorscheme NeoSolarized<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c13 :set background=light<CR>:colorscheme solarized8_flat<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c14 :set background=light<CR>:colorscheme flattened_light<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c15 :set background=light<CR>:colorscheme seagull<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c16 :set background=light<CR>:colorscheme PaperColor<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c17 :set background=light<CR>:colorscheme kemonofriends<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c18 :set background=light<CR>:colorscheme donbass<CR>:AirlineTheme base16_colors<CR>
+    nnoremap c19 :set background=light<CR>:colorscheme greent<CR>:AirlineTheme base16_colors<CR>
+
+    " 光标所在的屏幕行 ,是让光标所在行整一行都显示下划线的，就是加一条水平下划线）
+    " hi CursorLine       ctermbg=234   cterm=underline
+    hi CursorLine         ctermbg=NONE         cterm=underline
+    hi CursorLine         guibg=NONE   gui=underline
+    "
+    "
+    " 可视模式的选择区
+    hi Visual            ctermfg=NONE          ctermbg=237
+    hi Visual           guifg=NONE           guibg=#ffffff
+    "
+    hi VisualNOS               ctermfg=NONE    ctermbg=237
+    hi VisualNOS              guifg=NONE       guibg=#8B8386
+    "
+    " 光标所在的字符
+    hi Cursor           ctermfg=196  ctermbg=51
+    hi  Cursor           guifg=white   guibg=green
+    "
+    "
+    "分离垂直分割窗口的列
+    hi VertSplit       ctermfg=16      ctermbg=10   cterm=bold
+    hi VertSplit       guifg=#000000   guibg=#00FF00   cterm=bold
+    "
+    "|more-prompt|，文件更改后:q提示是否保存的颜色
+    hi MoreMsg ctermfg=11   ctermbg=16  cterm=BOLD term=Bold
+    hi MoreMsg guifg=#FFD700   guibg=#000000  gui=BOLD
+    "
+    " "警告消息
+    hi WarningMsg      ctermfg=231        cterm=bold
+    hi WarningMsg      guifg=#CDCDB4  guibg=#000000   cterm=bold
+    "
+    "当前窗口的状态行，以及wildmenu补全的非当前匹配颜色
+    hi StatusLine ctermfg=15    ctermbg=16  cterm=bold
+    hi StatusLine guifg=#E0FFFF   guibg=#000000   gui=bold
+    "
+    " wildmenu补全的当前匹配
+    hi WildMenu    ctermfg=46   ctermbg=16  cterm=BOLD  term=bold
+    hi WildMenu    guifg=#00FF00   guibg=#000000  gui=BOLD
+    "
+    " vim最底下一行(--插入--)的颜色,showmode 消息(INSERT)
+    hi ModeMsg         ctermfg=202  cterm=bold
+    hi ModeMsg         guifg=#CD9B1D  gui=bold
+    "
+    " 提示(请按Enter或其他命令继续)的颜色
+    hi Question        ctermfg=11  ctermbg=16
+    hi Question        guifg=#EEEE00  guibg=#000000
+    "
+    "
+    " "命令行上的错误信息 <!--more-->
+    hi ErrorMsg        ctermfg=199    ctermbg=16   cterm=bold
+    hi ErrorMsg        guifg=#C71585   guibg=#000000     gui=bold
+    "
+    "用于关闭的折叠的行
+    hi Folded          ctermfg=29          ctermbg=16
+    hi Folded          guifg=#66CD00
+    "
+    "Nerdtree目录树颜色
+    hi Directory       ctermfg=46               cterm=bold
+    hi Directory       guifg=#00FF00               gui=bold
+    "
+    " complete menu
+    hi Pmenu      ctermfg=0       ctermbg=243
+    hi Pmenu      guifg=#000000    guibg=darkgrey
+    "
+    " 弹出菜单选中项目
+    hi    PmenuSel   ctermfg=196   ctermbg=251
+    hi    PmenuSel   guifg=darkgrey guibg=black
+    "
+    " 弹出菜单滚动条。
+    hi    PmenuSbar        ctermbg=15
+    hi    PmenuSbar        guibg=#FFFFFF
+    "
+    " 弹出菜单滚动条的拇指, 和上面一一对应
+    hi    PmenuThumb      ctermbg=34    cterm=bold
+    hi    PmenuThumb      guibg=#228B22    gui=bold
+    "
+    " 没有标签的地方
+    hi  TabLineFill   ctermfg=2     ctermbg=246     term=Bold   cterm=bold
+
+    " 窗口尾部的'~'和 '@'
+    hi NonText         ctermfg=1  cterm=bold
+    hi NonText         guifg=#FF0000  cterm=bold
+
+    " " "特殊键，字符和'listchars'
+    hi SpecialKey         cterm=bold
+    hi SpecialKey      guifg=#00FFFF  gui=bold
+    """""""""""""""""""""""""""""""""""""""""""""""设置颜色结束"""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+
+    """""""""""""""""""""""""""""""""""""""""配置底部状态栏"""""""""""""""""""""""""""""""""""""""""
+
+    set statusline=%1*\%<%.50F\             "显示文件名和文件路径 (%<应该可以去掉)
+    set statusline+=%=%2*\%y%m%r%h%w\ %*        "显示文件类型及文件状态
+    set statusline+=%3*\%{&ff}\[%{&fenc}]\ %*   "显示文件编码类型
+    set statusline+=%4*\ row:%l/%L,col:%c\ %*   "显示光标所在行和列
+    set statusline+=%5*\%3p%%\%*            "显示光标前文本所占总文本的比例
+    hi User1 cterm=none ctermfg=25 ctermbg=58
+    hi User2 cterm=none ctermfg=208 ctermbg=0
+    hi User3 cterm=none ctermfg=169 ctermbg=0
+    hi User4 cterm=none ctermfg=100 ctermbg=0
+    hi User5 cterm=none ctermfg=green ctermbg=0
+    hi Normal ctermfg=252 ctermbg=none
+
+
+
+
+
+
+
+
+
+
     "===============================插件配置======================================"
+    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    let g:gutentags_modules = ['ctags']
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+    let g:gutentags_ctags_exclude=['.ccls-cache','build','install']
+    " 所生成的数据文件的名称
+    let g:gutentags_ctags_tagfile = '.tags'
+    " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+    " 检测 ~/.cache/tags 不存在就新建 "
+    if !isdirectory(s:vim_tags)
+       silent! call mkdir(s:vim_tags, 'p')
+    endif
+    " 配置 ctags 的参数
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
 
 
 endf
@@ -1907,11 +2125,6 @@ func! myspacevim#after() abort
     "关闭高亮直到下一次查找
     cnoremap hl  nohlsearch<CR>
 
-    " <F3> 打开文件树
-    let g:vista_sidebar_position = "vertical topleft"
-    let g:vista_default_executive = 'coc'
-    let g:vista_finder_alternative_executives = 'ctags'
-    nnoremap  <F2>  :Vista!!<CR>
     nnoremap  <F4>  :call QuickRun()<CR>
     " <F5> floaterm toggle
     " <F7> 打开历史记录
@@ -1986,499 +2199,9 @@ func! myspacevim#after() abort
         " + [漂亮的 Vim 弹出菜单插件](https://www.v2ex.com/amp/t/376762)
         " + [skywind3000/quickmenu.vim](https://github.com/skywind3000/quickmenu.vim)
 
-  "-----------------------------------------------------------------------------
-  " 树形目录插件 scrooloose/nerdtree 配置
-
-    " 使用说明
-        "        ?   快速帮助文档
-        "        o   打开一个目录或者打开文件，创建的是 buffer，也可以用来打开书签
-        "        go  打开一个文件，但是光标仍然留在 NERDTree，创建的是 buffer
-        "        t   打开一个文件，创建的是Tab，对书签同样生效
-        "        T   打开一个文件，但是光标仍然留在 NERDTree，创建的是 Tab，对书签同样生效
-        "        i   水平分割创建文件的窗口，创建的是 buffer
-        "        gi  水平分割创建文件的窗口，但是光标仍然留在 NERDTree
-        "        s   垂直分割创建文件的窗口，创建的是 buffer
-        "        gs  和 gi，go 类似
-        "        x   收起当前打开的目录
-        "        X   收起所有打开的目录
-        "        e   以文件管理的方式打开选中的目录
-        "        r   刷新光标所在的目录
-        "        R   刷新当前根路径
-        "        p   小写，跳转到光标所在的上一级路径
-        "        P   大写，跳转到当前根路径
-        "        J   到第一个节点
-        "        K   到最后一个节点
-        "        I   显示隐藏文件
-        "        m   显示文件操作菜单
-        "        C   将根路径设置为光标所在的目录
-        "        u       设置上级目录为根路径
-        "        :tabc   关闭当前的 tab
-        "        :tabo   关闭所有其他的 tab
-        "        :tabp   前一个 tab
-        "        :tabn   后一个 tab
-        "        gT      前一个 tab
-        "        gt      后一个 tab
-
-    " 配置
-        " 打开位置居左居右与初始化宽度配置设置（默认居左）
-        " let NERDTreeWinPos = 'right'  "居右
-        " let NERDTreeWinPos = 'left'   "居左
-        " let g:netrw_winsize = 35
-
-        "" 初始化时不打开nerd_tree窗口（默认不打开）
-        " let g:nerdtree_tabs_open_on_gui_startup = 1 " 打开
-        let g:nerdtree_tabs_open_on_gui_startup = 0   " 不打开
-
-        " 显示行号
-        let NERDTreeShowLineNumbers=1
-        let NERDTreeAutoCenter=1
-        " 是否显示隐藏文件
-        let NERDTreeShowHidden=1
-        " 设置宽度
-        let NERDTreeWinSize=31
-        " 在终端启动vim时，共享NERDTree
-        let g:nerdtree_tabs_open_on_console_startup=1
-        " 忽略一下文件的显示
-        let NERDTreeIgnore=['\.pyc','\~$','\.swp']
-        " 显示书签列表
-        let NERDTreeShowBookmarks=1
-
-        let g:NERDTreeDirArrowExpandable = '▸'
-        let g:NERDTreeDirArrowCollapsible = '▾'
-
-        " 开关树形目录的快捷键：
-        "map <C-n> :NERDTreeToggle<CR>   " Ctrl + n 开关
-        "map <F2> :NERDTreeToggle<CR>   " F2 开关
-        " nmap <F6> :NERDTreeToggle<cr> " F6 开关
-    noremap <Leader>nt :NERDTreeToggle<CR>
-
-  "-----------------------------------------------------------------------------
-  " 在 NERDTree 中显示 git 信息插件：nerdtree-git-plugin
-    " 使用说明
-        " 前提：安装 nerdtree 、需要安装相应字体才能完整使用
-
-    " 配置（需安装相应字体才能完整使用）
-        let g:NERDTreeShowIgnoredStatus = 1
-        let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "✹",
-            \ "Staged"    : "✚",
-            \ "Untracked" : "✭",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "✖",
-            \ "Dirty"     : "✗",
-            \ "Clean"     : "✔︎",
-            \ 'Ignored'   : '☒',
-            \ "Unknown"   : "?"
-            \ }
-
-  "-----------------------------------------------------------------------------
-  " 标签列表插件 vim-scripts/taglist.vim
-
-    " 使用说明，
-        "    最常用的几个命令：
-        "     可以用“:TlistOpen”打开taglist窗口，用“:TlistClose”关闭taglist窗口。或者使用“:TlistToggle”在打开和关闭间切换。
-        "     :Tlist
-        "     Ctrl + ]    " 把光标移到变量名或函数名上，然后按,直接跳到这个变量或函数定义的源文件中
-        "     Ctrl+t      " 可以退回原来的地方
-        "     Ctrl + o
-        "     Ctrl + W W
-        "     在taglist窗口中，可以使用下面的快捷键：
-        "     <CR>                                   跳到光标下tag所定义的位置，用鼠标双击此tag功能也一样
-        "     o                                      在一个新打开的窗口中显示光标下tag
-        "     <Space>                                显示光标下tag的原型定义
-        "     u                                      更新taglist窗口中的tag
-        "     s                                      更改排序方式，在按名字排序和按出现顺序排序间切换
-        "     x                                      taglist窗口放大和缩小，方便查看较长的tag
-        "     +                                      打开一个折叠，同zo
-        "     -                                      将tag折叠起来，同zc
-        "     *                                      打开所有的折叠，同zR
-        "     =                                      将所有tag折叠起来，同zM
-        "     [[                                     跳到前一个文件
-        "     ]]                                     跳到后一个文件
-        "     q                                      关闭taglist窗口
-        "     <F1>                                   显示帮助
-        "      rebuild_ctags                         -重建ctags索引    ctrl+t     ctrl+r      组合键
-        "      navigate_to_definition                -跳转到函数定义   ctrl+t     ctrl+t
-        "      jump_back                             -跳回             ctrl+t     ctrl+b
-        "      jump_back to_last_modification        -跳转到上次修改处 ctrl+t     ctrl+m
-        "      show_symbols                          -按函数索引查找   alt+s
-
-    " 配置
-        let Tlist_Use_Right_Window=1        "  1让窗口显示在右边，0的话就是显示在左边
-        let Tlist_Show_One_File=0           "  让taglist可以同时展示多个文件的函数列表
-        let Tlist_File_Fold_Auto_Close=1    "  非当前文件，函数列表折叠隐藏
-        let Tlist_Exit_OnlyWindow=1         "  当taglist是最后一个分割窗口时，自动推出vim
-        " 使用winmanager时，不使用快捷键
-        nnoremap <silent> <F8> :TlistToggle<CR>
-        noremap <Leader>tl :TlistToggle<CR>
-        noremap tl :TlistToggle<CR>
-        " 启动Vim后，自动打开taglist窗口。
-        " 使用winmanager时，将自动打开窗口关闭
-        " let Tlist_Auto_Open = 0
-
 " -----------------------------------------------------------------------------
-" 插件  mhinz/vim-startify  配置
-
-    " 使用说明
-
-    " 配置
-        "设置书签
-        let g:startify_bookmarks            = [
-                    \ '~/_vimrc',
-                    \]
-
-        "起始页显示的列表长度（是每个类型的数量,非总数）
-        let g:startify_files_number = 6
-
-        "自动加载session
-        let g:startify_session_autoload = 1
-
-        "过滤列表，支持正则表达式
-        let g:startify_skiplist = [
-               \ '^/tmp',
-               \ ]
-
-        "自定义Header和Footer
-        let g:startify_custom_header = [
-        \'         __  ____   __ __     _____ __  __ ____   ____  ',
-        \'        |  \/  \ \ / / \ \   / /_ _|  \/  |  _ \ / ___| ',
-        \'        | |\/| |\ V /   \ \ / / | || |\/| | |_) | |     ',
-        \'        | |  | | | |     \ V /  | || |  | |  _ <| |___  ',
-        \'        |_|  |_| |_|      \_/  |___|_|  |_|_| \_\\____| ',
-        \]
-        let g:startify_custom_footer = [
-        \'        +---------------------------------------------+ ',
-        \'        |     美妙人生的关键在于你能迷上什么东西!     | ',
-        \'        +--------------------+------------------------+ ',
-        \]
-
-" -----------------------------------------------------------------------------
-  " 书签可视化插件  MattesGroeger/vim-bookmarks  配置
-
-    " 使用说明
-        " 功能                                    快捷键          命令
-        " 添加/删除书签(当前行)                     mm        :BookmarkToggle
-        " 添加/编辑/删除当前行注释书签              mi        :BookmarkAnnotate <TEXT>
-        " 跳转到当前 buffer 的下一个书签            mn        :BookmarkNext
-        " 跳转到当前 buffer 的前一个书签            mp        :BookmarkPrev
-        " 在 quickfix 窗口中列出所有书签(toggle)    ma        :BookmarkShowAll
-        " 清除当前 buffer 内的所有书签              mc        :BookmarkClear
-        " 清除所有 buffer 内的书签                  mx        :BookmarkClearAll
-        " 保存书签到文件                                      :BookmarkSave <FILE_PATH>
-        " 从文件加载书签                                      :BookmarkLoad <FILE_PATH>
-
-    " 配置
-        highlight BookmarkSign ctermbg=NONE ctermfg=160
-        highlight BookmarkLine ctermbg=194 ctermfg=NONE
-        let g:bookmark_sign = '♥'                     " 书签符号设置（默认⚑）
-        "let g:bookmark_annotation_sign = '##'          " 注释(说明)书签符号(默认☰)
-        "let g:bookmark_highlight_lines = 1             " 默认值为0(否)，是否高亮显示书签行
-        "let g:bookmark_no_default_key_mappings = 1     " 默认值为0(否)，是否使用默认的快捷键
-        let g:bookmark_center = 1                      " 默认值为0(否)，是否跳转后的书签行居中
-        let g:bookmark_show_warning = 0                " 默认值为1(是)，删除所有书签时，是否显示警告信息
-        let g:bookmark_highlight_lines = 1             " 默认值为0(否)，是否高亮书签行
-        let g:bookmark_auto_close = 1                  " 默认值为0(否)，在 quickfix 窗口选中书签后，是否自动关闭 quickfix 窗口
-        let g:bookmark_save_per_working_dir = 1        " 默认值为0(否)，是否针对工作目录保存书签
-        let g:bookmark_auto_save = 0                   " 默认值为1(是)，是否自动保存书签
 
   " -----------------------------------------------------------------------------
-  " 撤销更改/撤销树插件  vim-undotree  配置
-
-    " 使用说明
-        " 命令模式下输入:UndotreeToggle 打开窗口，可看到当前文件在vim之前的更改记录
-
-    " 打开快捷键设置
-    nnoremap L :UndotreeToggle<CR>       " F3 打开undotree面板
-    noremap <Leader>ud :UndotreeToggle<CR> " \ud 打开undotree面板
-
-    "配置undotree产生的文件存放位置设置
-    set undodir=$HOME\\.undodir
-    set undofile
-    if has("persistent_undo")
-        set undodir=$HOME\\.undodir
-        set undofile
-    endif"
-
-    "undotree窗口布局颜样式选择（目前有4种）
-    if !exists('g:undotree_WindowLayout')
-      let g:undotree_WindowLayout = 3
-    endif
-
-
-  " -----------------------------------------------------------------------------
-
-
-
-    """"""""""""""""""""Shougo/defx.nvim设置"""""""""""""""""""""""""""""""""''
-    noremap <LEADER>df :Defx<CR>
-
-    " 开关快捷键,【-search=`expand('%:p')`】表示打开defx树后，光标自动放在当前buffer上
-    noremap <LEADER>df :Defx  -search=`expand('%:p')` -toggle <cr>
-    nnoremap <silent> df :Defx  -search=`expand('%:p')` -toggle <cr>
-
-
-    call defx#custom#option('_', {
-                \ 'resume': 1,
-                \ 'winwidth': 30,
-                \ 'split': 'vertical',
-                \ 'direction': 'topleft',
-                \ 'show_ignored_files': 0,
-                \ 'columns': 'mark:indent:git:icons:filename',
-                \ 'root_marker': '',..'])
-        nnoremap <silent><buffer><expr> 3u  defx#do_action('cd', ['../../..'])
-        nnoremap <silent><buffer><expr> 4u  defx#do_action('cd', ['../../../..'])
-    endfunction
-
-    let g:defx_icons_column_length = 2
-    let g:defx_icons_mark_icon = ''
-    let g:defx_icons_parent_icon = ""
-
-
-    """""""""""""""""""""""""""""""""""""" easymotion/vim-easymotion配置 """"""""""""""""""""""""""""""""""""""
-    " \\w    # 向后查找单词(find word after),定位到词首
-    " \\W    # 向后查找单词(find word before)
-    " \\e    # 向后查找，定位到词尾(find word end after)
-    " \\E    # 向后查找，位位到词尾(find word end before)
-    " \\b    # 向前查找单字，定位到词尾(find word end after)
-    " \\B    # 向前查找单字，位位到词尾(find word end before)
-    " \\f    # 向后查找单字(find letter after)
-    " \\F    # 向前查找单字(find letter before)
-    " \\s    #快捷键<leader><leader>s(即\\s), 然后输入要搜索的字母, 这个跳转是双向的
-
-    let g:EasyMotion_smartcase = 1
-    "let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-
-    " 行内跳转(hl)
-    map <Leader><leader>h <Plug>()
-    map <Leader><leader>l <Plug>(easymotion-lineforward)
-
-    " 行级跳转(jk)
-    map <Leader><Leader>j <Plug>(easymotion-j)
-    map <Leader><Leader>k <Plug>(easymotion-k)
-    " 重复上一次操作, 类似repeat插件, 很强大
-    map <Leader><leader>. <Plug>(easymotion-repeat)
-
-    " 使用 ss 启用
-    nmap ss <Plug>(easymotion-s2)
-    "注意：以上操作都是在本界面，也就是在当前所在屏幕的大小里面能显示的界面
-
-
-    """""""""""""""""""""""""""""luochen1990/rainbow配置"""""""""""""""""""""""""""""""""""""""""
-
-    " rainbow 对于不同的括号，渲染成不同颜色
-    let g:rainbow_active = 1
-    let g:rainbow_operators=2
-    let g:rainbow_conf = {
-                \   'guifgs': ['magenta1', 'maroon1', 'red1', 'orange1'],
-                \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-                \   'operators': '_,\|+\|-_',
-                \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-                \   'separately': {
-                \       '*': {},
-                \       'lisp': {
-                \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-                \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
-                \       },
-                \       'vim': {
-                \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
-                \       },
-                \       'tex': {
-                \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
-                \       },
-                \       'html': {
-                \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-                \       },
-                \       'css': 0,
-                \       'stylus': 0,
-                \   }
-                \}
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-    """"""""""""""""""""""""""""""""""""""""""""""""""rainbow_parenthsis配置""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-    let g:rbpt_colorpairs = [
-                \ ['brown',       'RoyalBlue3'],
-                \ ['Darkblue',    'SeaGreen3'],
-                \ ['darkgray',    'DarkOrchid3'],
-                \ ['darkgreen',   'firebrick3'],
-                \ ['darkcyan',    'RoyalBlue3'],
-                \ ['darkred',     'SeaGreen3'],
-                \ ['darkmagenta', 'DarkOrchid3'],
-                \ ['brown',       'firebrick3'],
-                \ ['gray',        'RoyalBlue3'],
-                \ ['darkmagenta', 'DarkOrchid3'],
-                \ ['Darkblue',    'firebrick3'],
-                \ ['darkgreen',   'RoyalBlue3'],
-                \ ['darkcyan',    'SeaGreen3'],
-                \ ['darkred',     'DarkOrchid3'],
-                \ ['red',         'firebrick3'],
-                \ ]
-
-    let g:rbpt_max = 16
-    let g:rbpt_loadcmd_toggle = 0
-    au VimEnter * RainbowParenthesesToggle
-    "RainbowParenthesesLoadRound 选项用于开启对 圆括号 () 的多彩色高亮匹配，该选项默认被开启；
-    au Syntax * RainbowParenthesesLoadRound
-    "RainbowParenthesesLoadSquare 选项用于开启对 方括号 [] 的多彩色高亮匹配；
-    au Syntax * RainbowParenthesesLoadSquare
-    "RainbowParenthesesLoadBraces 选项用于开启对 大括号 {} 的多彩色高亮匹配；
-    au Syntax * RainbowParenthesesLoadBraces
-    "RainbowParenthesesLoadChevrons 选项用于开启对 尖括号 <> 的多彩色高亮匹配。
-    "au Syntax * RainbowParenthesesLoadChevrons "
-
-
-    """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-    """""""""""""""""""""""""""""""""""""""""""""""""" mechatroner/rainbow_csv """"""""""""""""""""""""""""""""""""""""""""""""""
-
-    autocmd BufNewFile,BufRead *.csv   set filetype=csv_semicolon
-    autocmd BufNewFile,BufRead *.dat   set filetype=csv_pipe
-    let g:rcsv_delimiters = ["\t", ",", "^", "~#~"]
-    let g:disable_rainbow_csv_autodetect = 1
-
-    let g:rcsv_colorpairs = [['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', 'magenta'], ['NONE', 'NONE'], ['darkred', 'darkred'], ['darkblue', 'darkblue'], ['darkgreen', 'darkgreen'], ['darkmagenta', 'darkmagenta'], ['darkcyan', 'darkcyan']]
-
-
-
-    """"""""""""""""""""""""""""""""""""""" change-colorscheme 配置  """""""""""""""""""""""""""""""""""""""
-
-    " map <F2> :NextColorScheme<CR>
-    map nc :NextColorScheme<CR>
-    " imap <F12> <ESC> :NextColorScheme<CR>
-    " imap <Leader>nc <ESC> :NextColorScheme<CR>
-
-    " map <F11> :PreviousColorScheme<CR>
-    map pc :PreviousColorScheme<CR>
-    " imap <F11> <ESC> :PreviousColorScheme<CR>
-    " imap <Leader>pc <ESC> :PreviousColorScheme<CR>
-
-
-
-
-    """"""""""""""""""""""""""""" gelguy/wilder.nvim配置"""""""""""""""""""""""""""""""""""""""""
-    call wilder#setup({'modes': [':', '/', '?']})
-
-    call wilder#set_option('pipeline', [
-          \   wilder#branch(
-          \     wilder#cmdline_pipeline(),
-          \     wilder#search_pipeline(),
-          \   ),
-          \ ])
-
-    call wilder#set_option('renderer', wilder#wildmenu_renderer({
-          \ 'highlighter': wilder#basic_highlighter(),
-          \ }))
-
-
-
-    """"""""""""""""""""""""""""""""""""""""""   Tag List  """"""""""""""""""""""""""""""""""""""""""""""
-
-    "TagList插件依赖ctags插件
-    " 安装ctags
-    " sudo apt-get install ctags
-
-    " 安装Taglist
-    " 下载Taglist，地址是http://sourceforge.net/projects/vim-taglist/files/vim-taglist/
-
-    " 解压taglist_45.zip，可以看到有两个目录doc和plugin，结构如下
-
-    " cp   ~/下载/doc/taglist.txt  /usr/share/vim/vim72/doc/
-    " cp   ~/下载/plugin/taglist.vim  /usr/share/vim/vim72/plugin/
-
-
-    "设置ctags路径
-    " let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
-    let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-
-    "启动vim后自动打开taglist窗口
-    "打开文件时候不自动打开Taglist窗口
-    let Tlist_Auto_Open = 0
-
-    " tag按名字排序
-    let Tlist_Sort_Type="name"
-
-    "不同时显示多个文件的tag，仅显示一个
-    let Tlist_Show_One_File = 1
-
-    "taglist为最后一个窗口时，退出vim
-    let Tlist_Exit_OnlyWindow = 1
-
-    " 显示taglist菜单
-    " let Tlist_Show_Menu=1
-
-    " 鼠标单击跳转到tag定义, 要开启鼠标功能
-    let Tlist_Use_SingleClick=1
-
-    "taglist窗口显示在右侧，缺省为左侧
-    let Tlist_Use_Right_Window = 1
-    " let Tlist_Use_Right_Window = 0
-
-    " 自动更新
-    let Tlist_Auto_Update = 1
-
-    "设置taglist窗口大小
-    "let Tlist_WinHeight = 100
-    let Tlist_WinWidth = 30
-
-    "设置taglist打开关闭的快捷键F10，就是F10会显示代码中的函数，变量，类，宏等
-    " map tl <Esc>:TlistToggle<Cr>
-
-    "将 \t 表示为在命令行模式下输入命令：
-    nnoremap  tl <Esc>:TlistToggle<Cr>
-
-
-
-    """"""""""""""""""""""""""""""  majutsushi/tagbar配置 """"""""""""""""""""""""""""""""""""""
-
-    " 设置 tagbar 使用的 ctags 的插件，必须要设置对
-
-    let g:tagbar_ctags_bin='/usr/bin/ctags'
-    " 设置 tagbar 的窗口宽度
-    let g:tagbar_width=20
-    " 设置 tagbar 的窗口显示的位置，为右边
-    " let g:tagbar_right = 1
-    let g:tagbar_left = 1
-    " 打开文件自动 打开
-    autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.py,*.cc,*.cxx call tagbar#autoopen()
-
-
-    " 将开启tagbar的快捷键设置为　 tb
-    nnoremap  tb :TagbarToggle<CR>
-    map! tb <Esc> :TagbarToggle<CR>
-    "开启自动预览(随着光标在标签上的移动，顶部会出现一个实时的预览窗口)
-    let g:tagbar_autopreview = 0
-    "关闭排序,即按标签本身在文件中的位置排序
-    let g:tagbar_sort = 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
