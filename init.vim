@@ -1927,8 +1927,6 @@ hi User8 cterm=None ctermfg=249 ctermbg=240
 " 如果觉得SPC c l稍微麻烦（不同字母嘛），添加下面的代码到init.vim。
 call SpaceVim#custom#SPC('nmap', ['c', 'c'], '<Plug>NERDCommenterInvert', 'comment or uncomment lines', 0)
 call SpaceVim#custom#SPC('nnoremap', ['v'], ':Vista', 'VistaEnable', 1)
-call SpaceVim#custom#SPC('nnoremap', ['s', 'f'], 'Vista finder', 'search ctags simbols with Vista ', 1)
-call SpaceVim#custom#SPC('nnoremap', ['s', 'F'], 'LeaderfFunction!', 'search ctags simbols with Vista', 1)
 
 
 let g:spacevim_colorscheme = 'onedark'
