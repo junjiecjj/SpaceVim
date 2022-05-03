@@ -62,7 +62,7 @@ function! myspacevim#before() abort
     set dictionary+=/usr/share/dict/engspchk-dict
     set completeopt+=noinsert
 
-   
+
 
     ".Md文件也能被识别为markdown
     autocmd BufNewFile,BufRead *.Md set filetype=markdown

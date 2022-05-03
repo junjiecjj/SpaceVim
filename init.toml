@@ -18,8 +18,8 @@
     enable_guicolors = true
     # Disable statusline separator, if you want to use other value, please
     # install nerd fonts
-    statusline_separator = "arrow"
-    statusline_iseparator = "arrow"
+    statusline_separator = "mil"
+    statusline_iseparator = "bar"
     # buffer_index_type = 4
     enable_tabline_filetype_icon = true
     # 是否在状态栏上显示当前模式，默认情况下，不显示 Normal/Insert 等
@@ -48,7 +48,7 @@
     # statusline_separator = "nil"
     # statusline_separator = "bar"
     # 设置顶部标签列表序号类型，有以下五种类型，分别是 0 - 4
-    buffer_index_type = 4
+    buffer_index_type = 1
     # 0: 1 ➛ ➊
     # 1: 1 ➛ ➀
     # 2: 1 ➛ ⓵
@@ -60,24 +60,32 @@
     # 是否在状态栏上显示当前模式，默认情况下，不显示 Normal/Insert 等
     # 字样，只以颜色区分当前模式
     enable_statusline_display_mode = true
-#   statusline_left_sections = [
-#   'winnr',
-#      'filename',
-#      'major mode',
-#      'fileformat',
-#      'minor mode lighters',
-#      'version control info',
-#]
     # 状态栏左端部分的构成
     statusline_left_sections = ['winnr', 'major mode', 'filename', 'fileformat', 'minor mode lighters', 'version control info', 'search status']
     # 状态栏右端部分的构成
     statusline_right_sections = [
+       'battery status',
        'cursorpos',
        'percentage',
        'input method',
        'date',
        'time',
     ]
+    # 列表可以由以下一项或多项组成
+    # 'winnr' 当前窗口编号
+    # 'syntax checking'
+    # 'filename' 文件名
+    # 'fileformat' 文件格式
+    # 'major mode'
+    # 'minor mode lighters'
+    # 'cursorpos' 光标位置
+    # 'percentage' 百分比
+    # 'date' 日期
+    # 'time' 时间
+    # 'whitespace' 打开或者保存文件时，如果第 n 行的行尾有空格则显示 trailing[n]，并不能实时显示出行尾有空格的行号。
+    # 'battery status' 电池状态
+    # 'input method' 输入法
+    # 'search status' 搜索状态
     #######################################################################
     # MY OWN OPTIONS
     filemanager = "defx"
@@ -91,7 +99,7 @@
     # Vim兼容
     # vimcompatible = true
     # Vim兼容：Normal模式窗口快捷键的前缀改为X，s作为删除字符
-    windows_leader = 'X'
+    windows_leader = 's'
     # Vim兼容：语言专用的前缀键，f、F、t、T改为搜索
     enable_language_specific_leader = false
     # Vim兼容：智能关闭窗口q改为录制宏
@@ -124,7 +132,7 @@
 
 # 默认情况下文件树是打开的，如果需要设置文件树默认关闭，需要修改 enable_vimfiler_welcome 选项。
 [options]
-    enable_vimfiler_welcome = false
+    enable_vimfiler_welcome = true
 
 [options]
     filetree_direction = "left"
@@ -147,6 +155,12 @@
 # 注意: 为了在 Vim 中使用谷歌 suggestions，需要在 ~/.SpaceVim.d/init.toml 的 [options] 片段中加入如下配置：
 [options]
     enable_googlesuggest = true
+
+# 代办事项管理器
+[options]
+   todo_labels = ['fixme', 'question', 'todo', 'idea']
+   todo_prefix = '@'
+
 
 [options]
     # options for layers checkers
@@ -997,7 +1011,46 @@ merged = 0
 
 
 
-
+# 窗口管理
+# 常用的窗口管理快捷键有一个统一的前缀，默认的前缀 [Window] 是按键 s，可以在配置文件中通过修改 SpaceVim 选项 window_leader 的值来设为其它按键：
+#
+# [options]
+    # windows_leader = "s"
+# 快捷键	功能描述
+# q	智能关闭当前窗口
+# [Window] v	水平分屏
+# [Window] V	水平分屏，并编辑上一个文件
+# [Window] g	垂直分屏
+# [Window] G	垂直分屏，并编辑上一个文件
+# [Window] t	新建新的标签页
+# [Window] o	关闭其他窗口
+# [Window] x	关闭当前缓冲区，并保留新的空白缓冲区
+# [Window] q	关闭当前缓冲区
+# [Window] Q	关闭当前窗口
+# Shift-<Tab>	切换至前一窗口
+# 常规模式下的按键 q 被用来快速关闭窗口，其原生的功能可以使用 <Leader> q r 来代替。
+#
+# 常用编辑器窗口
+# 按键	功能描述
+# <F2>	打开、关闭语法树
+# <F3>	打开、关闭文件树
+# Ctrl-<Down>	切换至下方窗口
+# Ctrl-<Up>	切换至上方窗口
+# Ctrl-<Left>	切换至左边窗口
+# Ctrl-<Right>	切换至右边窗口
+# 窗口操作常用快捷键
+# 每一个窗口都有一个编号，该编号显示在状态栏的最前端，可通过 SPC 编号 进行快速窗口跳转。
+#
+# 快捷键	功能描述
+# SPC 1	跳至窗口 1
+# SPC 2	跳至窗口 2
+# SPC 3	跳至窗口 3
+# SPC 4	跳至窗口 4
+# SPC 5	跳至窗口 5
+# SPC 6	跳至窗口 6
+# SPC 7	跳至窗口 7
+# SPC 8	跳至窗口 8
+# SPC 9	跳至窗口 9
 
 
 

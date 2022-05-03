@@ -225,6 +225,7 @@
 >	init.vim	/^xnoremap > >gv$/;"	m
 AdjustFontSize	init.vim	/^function! AdjustFontSize(amount)$/;"	f
 Ag	init.vim	/^command! -bang -nargs=* Ag$/;"	c
+ArgFunc	init.vim	/^func! ArgFunc() abort$/;"	f
 Bigger	init.vim	/^command! Bigger :let &guifont = substitude(&guifont, '\\d\\+$', '\\=submatch(0)+1',")$/;"	c
 BookmarkMapKeys	init.vim	/^function! BookmarkMapKeys()$/;"	f
 BookmarkUnmapKeys	init.vim	/^function! BookmarkUnmapKeys()$/;"	f
@@ -389,6 +390,7 @@ g:clap_provider_quick_open	init.vim	/^let g:clap_provider_quick_open = {$/;"	v
 g:clap_theme	init.vim	/^let g:clap_theme = 'material_design_dark'$/;"	v
 g:clap_theme	init.vim	/^let g:clap_theme = { 'search_text': {'guifg': 'red', 'ctermfg': 'red'} }$/;"	v
 g:defx_icons_column_length	init.vim	/^let g:defx_icons_column_length = 2$/;"	v
+g:defx_icons_enable_syntax_highlight	init.vim	/^let g:defx_icons_enable_syntax_highlight = 1$/;"	v
 g:defx_icons_mark_icon	init.vim	/^let g:defx_icons_mark_icon = ''$/;"	v
 g:defx_icons_parent_icon	init.vim	/^let g:defx_icons_parent_icon = ""$/;"	v
 g:disable_rainbow_csv_autodetect	init.vim	/^let g:disable_rainbow_csv_autodetect = 1$/;"	v
@@ -439,7 +441,7 @@ g:table_mode_corner	autoload/myspacevim.vim	/^    let g:table_mode_corner='|'$/;
 g:tablineclosebutton	init.vim	/^let g:tablineclosebutton=1$/;"	v
 g:tagbar_autopreview	init.vim	/^let g:tagbar_autopreview = 0$/;"	v
 g:tagbar_ctags_bin	init.vim	/^let g:tagbar_ctags_bin='\/usr\/bin\/ctags'$/;"	v
-g:tagbar_left	init.vim	/^let g:tagbar_left = 1$/;"	v
+g:tagbar_left	init.vim	/^let g:tagbar_left = 0$/;"	v
 g:tagbar_sort	init.vim	/^let g:tagbar_sort = 0$/;"	v
 g:tagbar_width	init.vim	/^let g:tagbar_width=20$/;"	v
 g:terminal_color_0	init.vim	/^let g:terminal_color_0  = '#000000'$/;"	v
@@ -479,9 +481,11 @@ g:vista_disable_statusline	init.vim	/^let g:vista_disable_statusline = 1$/;"	v
 g:vista_echo_cursor	init.vim	/^let g:vista_echo_cursor = 1$/;"	v
 g:vista_echo_cursor_strategy	init.vim	/^let g:vista_echo_cursor_strategy ='floating_win'$/;"	v
 g:vista_executive_for	init.vim	/^let g:vista_executive_for = {$/;"	v
+g:vista_finder_alternative_executives	init.vim	/^let g:vista_finder_alternative_executives = 'ctags'$/;"	v
 g:vista_finder_alternative_executives	init.vim	/^let g:vista_finder_alternative_executives = ['coc']$/;"	v
 g:vista_fzf_preview	init.vim	/^let g:vista_fzf_preview = ['right:50%']$/;"	v
 g:vista_icon_indent	init.vim	/^let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]$/;"	v
+g:vista_sidebar_position	init.vim	/^let g:vista_sidebar_position = 'vertical botright'$/;"	v
 g:vista_sidebar_width	init.vim	/^let g:vista_sidebar_width = 30$/;"	v
 g:vista_stay_on_open	init.vim	/^let g:vista_stay_on_open = 1$/;"	v
 g:vista_vimwiki_executive	init.vim	/^let g:vista_vimwiki_executive = 'markdown'$/;"	v
