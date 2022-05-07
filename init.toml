@@ -89,7 +89,7 @@
     #######################################################################
     # MY OWN OPTIONS
     filemanager = "defx"
-    autocomplete_method = "coc"
+    autocomplete_method = "deoplete"
     #snippet_engine = "ultisnips"
     # 启动函数名称，该函数中可以使用Vim Script
     # 启动函数文件位置：~/.SpaceVim.d/autoload/myspacevim.vim
@@ -168,7 +168,7 @@
     enable_ale = false
     lint_on_the_fly = false
     # option for autocomplete
-    autocomplete_method = "coc"
+    autocomplete_method = "deoplete"
     # bootstrap configuration
     bootstrap_before = "myspacevim#before"
     bootstrap_after = "myspacevim#after"
@@ -199,8 +199,13 @@
 # 关于模块的选项，请阅读各个模块的文档
 [[layers]]
     name = "autocomplete"
-    auto-completion-return-key-behavior = "complete"
-    auto-completion-tab-key-behavior = "cycle"
+    auto_completion_return_key_behavior = "nil"
+    auto_completion_tab_key_behavior = "smart"
+    auto_completion_enable_snippets_in_popup = true
+    autocomplete_parens = true
+    auto_completion_delay = 200
+    auto_completion_complete_with_key_sequence = "nil"
+    auto_completion_complete_with_key_sequence_delay = 0.1
 
 [[layers]]
   name = "ui"
