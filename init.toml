@@ -519,9 +519,41 @@ name = 'simeji/winresizer'
 
 # 书签管理插件
 [[custom_plugins]]
-name = "MattesGroeger/vim-bookmarks"
-merged = 0
+    name = "MattesGroeger/vim-bookmarks"
+    merged = 0
 
+
+# 补全插件
+[[custom_plugins]]
+    name = "Shougo/deoplete.nvim"
+    merged = 0
+[[custom_plugins]]
+    name = "roxma/nvim-yarp"
+    merged = 0
+[[custom_plugins]]
+    name = "roxma/vim-hug-neovim-rpc"
+    merged = 0
+[[custom_plugins]]
+    name = "Valloric/YouCompleteMe"
+    merged = 0
+[[custom_plugins]]
+    name = "SirVer/ultisnips"
+    merged = 0
+[[custom_plugins]]
+    name = "honza/vim-snippets"
+    merged = 0
+
+
+# 格式化代码
+[[custom_plugins]]
+    name = "tell-k/vim-autopep8"
+    merged = 0
+[[custom_plugins]]
+    name = "sbdchd/neoformat"
+    merged = 0
+[[custom_plugins]]
+    name = ""
+    merged = 0
 
 
 
@@ -551,11 +583,6 @@ merged = 0
 name = "mbbill/undotree"
 merged = 0
 
-
-# (类名、变量、函数)标签列表插件
-[[custom_plugins]]
-name = "vim-scripts/taglist.vim"
-merged = 0
 
 
 # 书签管理插件
