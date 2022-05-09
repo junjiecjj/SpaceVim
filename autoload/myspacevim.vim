@@ -63,7 +63,6 @@ function! myspacevim#before() abort
     set completeopt+=noinsert
 
 
-
     ".Md文件也能被识别为markdown
     autocmd BufNewFile,BufRead *.Md set filetype=markdown
     "ejs识别为html
@@ -161,7 +160,42 @@ function! myspacevim#before() abort
         endif
         echo 'done'
     endf
+    "===============================插件配置======================================"
+    " floaterm - 浮动终端窗口
+    let g:floaterm_keymap_prev   = '<C-p>'
+    let g:floaterm_keymap_new    = '<C-n>'
+    let g:floaterm_keymap_toggle = '<F5>'
 
+    "gutentags配置，由于依靠compile_command.json总是跳转到安装目录，不方便编辑源文件，还是用ctags吧
+    " gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+    let g:gutentags_modules = ['ctags']
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+    let g:gutentags_ctags_exclude=['.ccls-cache','build','install']
+    " 所生成的数据文件的名称
+    let g:gutentags_ctags_tagfile = '.tags'
+    " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+    " 检测 ~/.cache/tags 不存在就新建 "
+    if !isdirectory(s:vim_tags)
+       silent! call mkdir(s:vim_tags, 'p')
+    endif
+    " 配置 ctags 的参数
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+    " airline代替statusline，部分配置在bootsrap_after
+    call SpaceVim#layers#disable('core#statusline')
+    call SpaceVim#layers#disable('core#tabline')
+    " 关闭最右边栏
+    let g:airline#extensions#whitespace#enabled = 0
+    " 不显示git分支
+    let g:airline#extensions#branch#enabled = 0
+    " 去掉section B和X
+    let g:airline_section_b = ''
+    "let g:airline_section_x = ''
+    let g:airline_section_x = '%-0.25{getcwd()}'
 
 endf
 
@@ -169,7 +203,27 @@ endf
 
 " 启动函数 VimEnter autocmd后执行
 func! myspacevim#after() abort
+  "-----------------------------------------------------------------------------
+  " 自动动作配置
+    " 设置 启动vim时的工作目录
+    let g:Source="~"   " 用户目录
+    "set autochdir     " 自动切换到当前编辑的文件所在路径 会与NERDTree冲突
+    " 手动切换到当前选中文件所在目录路径 :cd %:p:h
+    nnoremap <leader>. :cd %:p:h<cr>
+    " 打开自动定位到最后编辑的位置, 需要确认.viminfo当前用户可写
+    if has("autocmd")
+        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    endif
 
+    "关闭最后一个文件编辑buffer窗口时，自动退出其余所有NERDTree、Quickfix窗口
+    "autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | qa! | endif
+
+    "关闭最后一个文件编辑buffer窗口时，打开 vim-project 面板(需要安装amiorin/vim-project插件)
+    "autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | Welcome | endif
+
+    "关闭最后一个文件编辑buffer窗口时，打开 Startify 面板(需要安装mhinz/vim-startify插件)
+    autocmd BufEnter * if 0 == len(filter(range(1, winnr('$')), 'empty(getbufvar(winbufnr(v:val), "&bt"))')) | Startify | endif
+" -----------------------------------------------------------------------------
     "一般关闭paste模式，该模式下有的map会出问题
     set nopaste
     "不自动分行(但可以分行显示）
@@ -242,6 +296,36 @@ func! myspacevim#after() abort
 
     "同时显示git信息和line number
     set signcolumn=yes
+
+    "===============================插件配置======================================"
+    " vim-beanCount
+    "path to your root beancount file
+    let b:beancount_root= '~/Desktop/repositories/beanCount_zcp/zcp.bean'
+    " default or chunks
+    let g:beancount_account_completion= 'default'
+    let g:beancount_separator_col= 10
+    " If non-zero, accounts higher down the hierarchy will be listed first as completions.
+    let g:beancount_detailed_first = 1
+    autocmd Filetype beancount inoremap . .<C-\><C-O>:AlignCommodity<CR>
+    autocmd Filetype beancount inoremap <C-o> <C-x><C-O>
+
+    " vim-airline
+    " 去掉LN显示
+    let g:airline_symbols.linenr= ''
+    " 加入Window编号
+    function! WindowNumber(...)
+        let builder = a:1
+        let context = a:2
+        call builder.add_section('airline_b', '%{tabpagewinnr(tabpagenr())}')
+        return 0
+    endfunction
+    call airline#add_statusline_func('WindowNumber')
+    call airline#add_inactive_statusline_func('WindowNumber')
+    " 用airline时`SPC num`跳转窗口失效，重新映射
+    noremap <Space>1 1<C-w>w
+    noremap <Space>2 2<C-w>w
+    noremap <Space>3 3<C-w>w
+    noremap <Space>4 4<C-w>w
     "===============================插件配置======================================"
     " 快捷菜单插件 skywind3000/quickmenu.vim 配置
 
@@ -294,9 +378,171 @@ func! myspacevim#after() abort
     " + [skywind3000/quickmenu.vim](https://github.com/skywind3000/quickmenu.vim)
 
 " -----------------------------------------------------------------------------
-
 " -----------------------------------------------------------------------------
+" 代码注释插件 preservim/nerdcommenter
+" SpaceVim有内置的代码注释 该插件会与之冲突或被禁用了
+" SpaceVim 有内置代码注释 <space>+c+l 、<sapce>+c+u <space>+c+L
+    " " 使用方法：
+    "     " # <leader>cc // 注释
+    "     " # <leader>cm 只用一组符号注释
+    "     " # <leader>cA 在行尾添加注释
+    "     " # <leader>c$ /* 注释 */
+    "     " # <leader>cs /* 块注释 */
+    "     " # <leader>cy 注释并复制
+    "     " # <leader>c<space> 注释/取消注释
+    "     " # <leader>ca 切换　// 和 /* */
+    "     " # <leader>cu 取消注释
+    "
+    " " 配置
+    "     " let g:NERDSpaceDelims = 1
+    "     " let g:NERDDefaultAlign = 'left'
+    "     " let g:NERDCustomDelimiters = {
+    "     "             \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
+    "     "             \ 'less': { 'left': '/**', 'right': '*/' }
+    "     "         \ }
+    "
+    "     " Add spaces after comment delimiters by default （默认情况下，在注释分隔符后添加空格）
+    "     let g:NERDSpaceDelims = 1
+    "
+    "     " Use compact syntax for prettified multi-line comments （对经过修饰的多行注释使用紧凑语法）
+    "     let g:NERDCompactSexyComs = 1
+    "
+    "     " Align line-wise comment delimiters flush left instead of following code indentation （按行对齐注释分隔符左对齐，而不是按代码缩进）
+    "     let g:NERDDefaultAlign = 'left'
+    "
+    "     " Set a language to use its alternate delimiters by default （将语言设置为默认情况下使用其备用分隔符）
+    "     let g:NERDAltDelims_java = 1
+    "
+    "     " Add your own custom formats or override the defaults（添加您自己的自定义格式或覆盖默认格式）
+    "     let g:NERDCustomDelimiters = {
+    "             \ 'c': { 'left': '/**','right': '*/' },
+    "             \ 'javascript': { 'left': '//', 'leftAlt': '/**', 'rightAlt': '*/' },
+    "             \ 'less': { 'left': '/**', 'right': '*/' },
+    "        \ }
+    "
+    "     " Allow commenting and inverting empty lines (useful when commenting a region)(允许注释和反转空行（在注释区域时有用）)
+    "     let g:NERDCommentEmptyLines = 1
+    "
+    "     " Enable trimming of trailing whitespace when uncommenting (取消注释时启用尾随空白的修剪)
+    "     let g:NERDTrimTrailingWhitespace = 1
+    "
+    "     " Enable NERDCommenterToggle to check all selected lines is commented or not (启用NerdCommentToggle以检查所有选定行是否已注释)
+    "     let g:NERDToggleCheckAllLines = 1
+" -----------------------------------------------------------------------------
+""""""""""""  自定义函数: 快速输入时间
+""""""""""""
 
+    " --实现方案一, 然后在编辑文件时，在输入模式下，输入 xdate 或 xdatetime 后按回车，便可输入以下格式的时间：
+        iab xdate <c-r>=strftime("20%y.%m.%d")<cr>
+        iab xdatetime <c-r>=strftime("20%y/%m/%d %H:%M:%S")<cr>
+        iab xdatetime1 <c-r>=strftime("20%y/%m/%d %H:%M:%S %p (%A) %z")<cr>
+
+    " --实现方案二, linux系统的命令模式下 :r !date
+
+    " > 参考资料
+    " + [Vim技能修炼教程(15) - 时间和日期相关函数](https://www.jianshu.com/p/172982c0a5f4)
+
+""""""""""""  自定义函数: 获取当前目录路径
+""""""""""""
+
+    " 将当前编辑的文件完全路径拷贝到系统剪贴板 --实现方案一
+        " function GetCurFilePath()
+        "     let cur_dir=getcwd()
+        "     let dir_filename=cur_dir."\\"
+        "     echo dir_filename.expand("%:r")."         done"
+        "     call setreg('+',dir_filename)
+        " endfunction
+
+    " 将当前编辑的文件完全路径拷贝到系统剪贴板  --实现方案二
+        function GetCurFilePath()
+            let cur_dir=getcwd()
+            let cur_file_name=getreg('%')
+            let dir_filename=cur_dir."\\".cur_file_name
+            echo dir_filename."         done"
+            call setreg('+',dir_filename)
+        endfunction
+
+    " 使用说明
+        " 命令模式下输入 ：call GetCurFilePath() 快速获取当前路径
+
+    "" 快捷键设置
+    "nnoremap <silent> <F9> : call GetCurFilePath()<cr>
+
+
+""""""""""""  自定义函数:设置只有在是PHP文件时，才启用PHP补全 函数
+""""""""""""
+
+    " 前提
+        " 1、 配置步骤：首先下载PHP函数列表文件，将该文件保存在目录 /etc/vim/下:
+        " 2、 设置php函数列表文件地址（前提将php_funclist.txt文件放在 ~/php_funclist.txt ）
+
+    " 设置在针对所有文件都启用了PHP补全
+    " 将函数列表文件引入补全配置中
+    " set dictionary-=/etc/vim/php_funclist.txt  dictionary+=/etc/vim/php_funclist.txt
+    " set dictionary-='C:/Program Files (x86)/Vim/vimfiles/php_funclist.txt'  dictionary+='C:/Program Files (x86)/Vim/vimfiles/php_funclist.txt'
+
+    " 设置只有在是PHP文件时，才启用PHP补全
+    au FileType php call PHPFuncList()
+
+    function PHPFuncList()
+        set dictionary-=~/.vim/completion_dictionary/php_funclist.txt dictionary+=~/.vim/completion_dictionary/php_funclist.txt
+        set complete-=k complete+=k
+    endfunction
+
+    " 使用方法
+        " 进入vim编辑的时候，按下 (control+p)或者 ，就可以出现php的自动补全。
+
+  """"""""""""  自定义函数:打开当前文件所在位置的文件管理器窗口
+  """"""""""""
+
+    "功能：当前文件所在位置，同时不阻塞当前窗口。
+
+
+    function OpenFileLocation()
+        if ( expand("%") != "" )
+            execute "!start explorer /select, %"
+        else
+            execute "!start explorer /select, %:p:h"
+        endif
+    endfunction
+
+    function OpenFolderWithApp(name)
+    "function ViewInBrowser(name)
+        let path = expand("%:p:h")
+        echo "当前位置：" . path
+        if has('win32') || has('win64') || has('win16') || has('win95')
+            let l:browsers = {
+                \"explorer":"explorer \/select, %:p:h",
+                \"PowerShell":"powershell.exe -noexit -command Set-Location -literalPath  %:p:h",
+                \"Git-Gui":"C:\\Program Files\\Git\\cmd\\git-gui.exe  --working-dir ",
+                \"Git-Bash":"C:\\Program Files\\Git\\git-bash.exe --cd=%:p:h",
+            \}
+
+            "C:\Program Files\Git\cmd\git-gui.exe" "--working-dir" "%1"
+            "powershell.exe -noexit -command Set-Location -literalPath '%V'
+            "C:\Users\CodeRooster\AppData\Local\Programs\Microsoft VS Code\Code.exe" "%V"
+            "C:\Program Files\Git\git-bash.exe" "--cd=%1"
+
+            " 执行命令用相应程序打开文件
+            execute "!start "l:browsers[a:name]
+        else
+            let l:browsers = {
+                \"ranger":"source ranger",
+            \}
+            execute "silent !"  l:browsers[a:name] file
+        endif
+    endfunction
+    " 快捷方式映射
+    map gb <ESC>:call OpenFileLocation()<CR>
+
+    " 使用说明
+        " 命令模式下 输入 gb 打开当前所在文件夹
+
+    " 自定命令
+    :command Open       :call OpenFolderWithApp("explorer")<cr>          " 用文件管理器打开
+    :command PowerShell :call OpenFolderWithApp("PowerShell")<cr>        " 在PowerShell打开
+    ":command Gitbash    :call OpenFolderWithApp("Git-Bash")<cr>          " 用Git-Bash打开
+    ":command Gitgui     :call OpenFolderWithApp("Git-Gui")<cr>           " 用Git-Gui打开
 
 
 endf

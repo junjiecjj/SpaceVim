@@ -283,69 +283,81 @@
     merged = false
 
 [[custom_plugins]]
-name = "Yggdroot/LeaderF"
-merged = 0
+    name = "Yggdroot/LeaderF"
+    merged = 0
 [[custom_plugins]]
-name = "tpope/vim-scriptease"
-merged = 0
-on_cmd = "Scriptnames"
+    name = "tpope/vim-scriptease"
+    merged = 0
+    on_cmd = "Scriptnames"
 
 
 # 添加自定义插件 junegunn/vader.vim
 [[custom_plugins]]
-repo = "junegunn/vader.vim"
-merged = false
+    repo = "junegunn/vader.vim"
+    merged = false
+    merged = 0
 
 
 [[custom_plugins]]
-name = "mhartington/oceanic-next"
-merged = 0
+    name = "mhartington/oceanic-next"
+    merged = 0
+    merged = 0
 
 # coc.nvim 核心配置，不要删除
 # ~/.cache/vimfiles/repos/github.com/neoclide/coc.nvim
 [[custom_plugins]]
-name = 'neoclide/coc.nvim'
-merge = 0
+    name = 'neoclide/coc.nvim'
+    merge = 0
+    merged = 0
 
 
 
 [[custom_plugins]]
-name = 'antoinemadec/coc-fzf'
-branch = 'release'
+    name = 'antoinemadec/coc-fzf'
+    branch = 'release'
+    merged = 0
 
 [[custom_plugins]]
-name = 'junegunn/fzf.vim'
+    name = 'junegunn/fzf.vim'
+    merged = 0
 
 # 快速搜索文件和 buffer
 [[custom_plugins]]
-name = "Yggdroot/LeaderF"
-build = "./install.sh"
+    name = "Yggdroot/LeaderF"
+    build = "./install.sh"
+    merged = 0
 
 # 快速编辑 markdown 的表格
 [[custom_plugins]]
-name = 'dhruvasagar/vim-table-mode'
+    name = 'dhruvasagar/vim-table-mode'
+    merged = 0
 
 # 更加美观的 tagbar
 [[custom_plugins]]
-name = 'liuchengxu/vista.vim'
+    name = 'liuchengxu/vista.vim'
+    merged = 0
 
 # 更加方便的调节窗口的大小
 [[custom_plugins]]
-name = 'simeji/winresizer'
+    name = 'simeji/winresizer'
+    merged = 0
 
 # 为 c/cpp 提供基于 lsp 的高亮
 [[custom_plugins]]
     name = 'jackguo380/vim-lsp-cxx-highlight'
+    merged = 0
 
 # 从 http://cplusplus.com/ 和 http://cppreference.com/ 获取文档
 [[custom_plugins]]
     name = 'skywind3000/vim-cppman'
+    merged = 0
 
 # 利用 git blame 显示当前行的 commit message
 [[custom_plugins]]
     name = 'rhysd/git-messenger.vim'
     lazy =  1
     on_cmd = 'GitMessenger'
+    merged = 0
 
 # 以悬浮窗口的形式打开终端
 [[custom_plugins]]
@@ -356,6 +368,10 @@ name = 'simeji/winresizer'
 [[custom_plugins]]
     name = 'google/vim-searchindex.git'
     merged = 0
+[[custom_plugins]]
+    name = 'lucasicf/vim-smooth-scroll'
+    merged = 0
+
 
 # 记账
 [[custom_plugins]]
@@ -551,8 +567,10 @@ name = 'simeji/winresizer'
 [[custom_plugins]]
     name = "sbdchd/neoformat"
     merged = 0
+
+
 [[custom_plugins]]
-    name = ""
+    name = "gelguy/wilder.nvim"
     merged = 0
 
 
@@ -628,13 +646,9 @@ name = "nlknguyen/papercolor-theme"
 merged = 0
 
 
-
-
 [[custom_plugins]]
 name = "sonph/onehalf"
 merged = 0
-
-
 
 
 
@@ -643,14 +657,9 @@ name = "lifepillar/vim-solarized8"
 merged = 0
 
 
-
-
-
 [[custom_plugins]]
 name = "altercation/vim-colors-solarized"
 merged = 0
-
-
 
 
 
@@ -660,22 +669,14 @@ merged = 0
 
 
 
-
-
 [[custom_plugins]]
 name = "lifepillar/vim-gruvbox8"
 merged = 0
 
 
-
-
-
 [[custom_plugins]]
 name = "wsniper/vim-color-theme-protect-eyes"
 merged = 0
-
-
-
 
 
 [[custom_plugins]]
@@ -684,13 +685,9 @@ merged = 0
 
 
 
-
-
 [[custom_plugins]]
 name = "atrnh/magical-girl-vim"
 merged = 0
-
-
 
 
 
@@ -940,13 +937,9 @@ name = "john2x/flatui.vim"
 merged = 0
 
 
-
-
 [[custom_plugins]]
 name = "kjssad/quantum.vim"
 merged = 0
-
-
 
 
 [[custom_plugins]]
@@ -955,12 +948,9 @@ merged = 0
 
 
 
-
 [[custom_plugins]]
 name = "tamlok/detorte"
 merged = 0
-
-
 
 
 [[custom_plugins]]
